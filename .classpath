@@ -4,7 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MT4j"/>
 	<classpathentry kind="lib" path="Processing/core.jar"/>
-	<classpathentry kind="lib" path="Processing/export.txt"/>
 	<classpathentry kind="lib" path="Processing/gluegen-rt-natives-linux-amd64.jar"/>
 	<classpathentry kind="lib" path="Processing/gluegen-rt-natives-linux-armv6hf.jar"/>
 	<classpathentry kind="lib" path="Processing/gluegen-rt-natives-linux-i586.jar"/>
