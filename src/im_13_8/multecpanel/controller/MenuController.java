@@ -8,11 +8,11 @@ public class MenuController {
 	private ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 	
 	public MenuController() {
-		this.menuItems.add(new MenuItem("Portfolio", "images/portfolioEdited.jpg", "portfolio"));
-		this.menuItems.add(new MenuItem("Studie", "images/studieEdited.jpg", "studie"));
-		this.menuItems.add(new MenuItem("Events", "images/eventsEdited.jpg", "events"));
-		this.menuItems.add(new MenuItem("Campus", "images/campusEdited.jpg", "campus"));
-		this.menuItems.add(new MenuItem("School", "images/schoolEdited.jpg", "school"));
+		this.menuItems.add(new MenuItem("Portfolio", "images/portfolioBlack.jpg", "portfolio"));
+		this.menuItems.add(new MenuItem("Studie", "images/studieBlack.jpg", "studie"));
+		this.menuItems.add(new MenuItem("Events", "images/eventsBlack.jpg", "events"));
+		this.menuItems.add(new MenuItem("Campus", "images/campusBlack.jpg", "campus"));
+		this.menuItems.add(new MenuItem("School", "images/schoolBlack.jpg", "school"));
 	}
 	
 	public ArrayList<MenuItem> getMenuItems() {

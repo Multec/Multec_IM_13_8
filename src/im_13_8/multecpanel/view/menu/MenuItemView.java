@@ -13,7 +13,8 @@ import processing.core.PImage;
 
 public class MenuItemView extends MTComponent {
 	private MTColor transBlack = new MTColor(0, 0, 0, 200);
-	private IFont fontMenu;
+	private MTColor digixRed = new MTColor(239,71,64);
+	private IFont fontMenuHeader;
 
 	public MenuItemView(float x, float y, float width, float height,
 			PApplet mtApplication, String name, String imgPathName, int indexInArray) {
@@ -22,8 +23,13 @@ public class MenuItemView extends MTComponent {
 		this.translate(new Vector3D(x,y));
 		MTRectangle menuItemView = new MTRectangle(width, height, mtApplication);
 		
-		fontMenu = FontManager.getInstance().createFont(mtApplication, "MyriadPro-Regular", 60, true);
-		// font werkt nog niet!
+		IFont fontMenuHeader = FontManager.getInstance().createFont(mtApplication,
+				"MyriadPro-Regular.otf", 
+				87, 	//Font size
+				digixRed, //Fill Color
+				digixRed // Stroke Color
+		);
+		//Moet op termijn ingeladen worden op de start van de app
 		
 		PImage bgImage = mtApplication.loadImage(imgPathName);
 		
@@ -36,7 +42,7 @@ public class MenuItemView extends MTComponent {
 		transBox.setNoStroke(true);
 		this.addChild(transBox);
 		
-		MTTextArea textBox = new MTTextArea(mtApplication, fontMenu);
+		MTTextArea textBox = new MTTextArea(mtApplication, fontMenuHeader);
 		this.addChild(textBox);
 
 		textBox.setNoFill(true);
@@ -46,10 +52,12 @@ public class MenuItemView extends MTComponent {
 		clearAllGestures();
 	}
 	
+	//pijltjes nog toevoegen
+	
 	private void clearAllGestures() {
 		for (MTComponent comp : this.getChildren()) {
 			comp.unregisterAllInputProcessors();
-			comp.removeAllChildren();
+			//comp.removeAllChildren();
 		}
 	}
 
