@@ -2,6 +2,7 @@ package im_13_8.multecpanel;
 
 import im_13_8.multecpanel.view.HomeScene;
 import im_13_8.multecpanel.view.Menu;
+import im_13_8.multecpanel.view.list.ListView;
 
 import org.mt4j.MTApplication;
 
@@ -10,7 +11,7 @@ public class Application extends MTApplication {
 
 	@Override
 	public void startUp() {
-		this.addScene(new Menu(this, "Menu"));
+		this.addScene(new ListView(this, "Menu"));
 	}
 
 	public static void main(String[] args) {
