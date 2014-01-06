@@ -1,8 +1,7 @@
-package im_13_8.multecpanel.view;
+package im_13_8.multecpanel.view.menu;
 
 import im_13_8.multecpanel.controller.MenuController;
 import im_13_8.multecpanel.entiteiten.MenuItem;
-import im_13_8.multecpanel.view.menu.MenuItemView;
 
 import java.util.ArrayList;
 

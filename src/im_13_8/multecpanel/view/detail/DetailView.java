@@ -1,4 +1,4 @@
-package im_13_8.multecpanel.view;
+package im_13_8.multecpanel.view.detail;
 
 import im_13_8.multecpanel.controller.DetailController;
 import im_13_8.multecpanel.entiteiten.DetailInfo;
