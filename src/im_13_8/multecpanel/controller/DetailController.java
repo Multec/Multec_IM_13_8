@@ -8,7 +8,7 @@ public class DetailController {
 	
 	public DetailInfo getDetailInfo(){
 		
-		DetailInfo detail = new DetailInfo("IOS", "Hier komt een omschrijving van het bepaalde vak", "/Users/rickyleemans/Desktop/design mock/ios.png");
+		DetailInfo detail = new DetailInfo("IOS Development", "In dit vak leren jullie programmeren voor de iPhone en de iPad.", "images/iosDevelopment.jpg");
 		
 		return detail;
 	}

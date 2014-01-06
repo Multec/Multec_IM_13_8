@@ -21,13 +21,22 @@ public class DetailView extends AbstractScene {
 	private MTColor black = new MTColor(0, 0, 0, 200);
 	private MTColor white = new MTColor(255,255,255);
 	private MTColor whiteArrow = new MTColor(255,255,255, 150);
+	private MTColor transBlack = new MTColor(0, 0, 0, 200);
+	private MTColor digixRed = new MTColor(239,71,64);
 	
 	private DetailController controller;
 	private DetailInfo detailInfo;
 	
-	
 	public DetailView(MTApplication mtApplication, String name){
 		super(mtApplication, name);
+		
+		IFont fontDetailTitle = FontManager.getInstance().createFont(mtApplication,
+				"MyriadPro-Regular.otf", 
+				87, 	//Font size
+				digixRed, //Fill Color
+				digixRed // Stroke Color
+		);
+		//Moet op termijn ingeladen worden op de start van de app
 		
 		controller = new DetailController();
 		detailInfo = controller.getDetailInfo();
@@ -36,27 +45,26 @@ public class DetailView extends AbstractScene {
 		this.getCanvas().addChild(background);
 			
 			 
-		MTRectangle  blackTrans = new MTRectangle(0, mtApplication.height / 20 * 17, mtApplication.width, mtApplication.height / 5, mtApplication);
+		MTRectangle blackTrans = new MTRectangle(0, mtApplication.height / 15 * 11, mtApplication.width, mtApplication.height / 15 * 4, mtApplication);
 		blackTrans.setFillColor(black);
 		blackTrans.setNoStroke(true);
 		this.getCanvas().addChild(blackTrans);
 			 
-		IFont fontTitel = FontManager.getInstance().createFont(mtApplication, "arial.ttf", 40, white,  white);
 		IFont fontOmschrijving = FontManager.getInstance().createFont(mtApplication, "arial.ttf", 25, white,  white);
 			 
 			 
-		MTTextArea titel = new MTTextArea(mtApplication, fontTitel); 
+		MTTextArea titel = new MTTextArea(mtApplication, fontDetailTitle); 
+		this.getCanvas().addChild(titel);
 		titel.setNoFill(true);
 		titel.setNoStroke(true);
 		titel.setText(detailInfo.getVakNaam());
-		titel.translate(new Vector3D(25, 870));
-		this.getCanvas().addChild(titel);
+		titel.translate(new Vector3D(25, mtApplication.height/20 * 15));
 			 
 		MTTextArea omschrijving = new MTTextArea(mtApplication, fontOmschrijving); 
 		omschrijving.setNoFill(true);
 		omschrijving.setNoStroke(true);
 		omschrijving.setText(detailInfo.getVakOmschrijving());
-		omschrijving.translate(new Vector3D(25, 920));
+		omschrijving.translate(new Vector3D(25, mtApplication.height/20 * 17));
 		this.getCanvas().addChild(omschrijving);
 		
 		MTEllipse back = new MTEllipse(mtApplication, new Vector3D(860,0), 75, 75);
