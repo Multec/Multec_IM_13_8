@@ -4,7 +4,6 @@ import im_13_8.multecpanel.entiteiten.ListItem;
 
 import org.mt4j.components.MTComponent;
 import org.mt4j.components.TransformSpace;
-import org.mt4j.components.visibleComponents.GeometryInfo;
 import org.mt4j.components.visibleComponents.font.FontManager;
 import org.mt4j.components.visibleComponents.font.IFont;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
@@ -47,11 +46,11 @@ public class ListItemView extends MTComponent {
 				25, 	//Font size
 				white,  //Font fill color
 				white
-				);	
+				);
 		
 		final ListItemView liv = this;
 		
-		tekstfieldlinks = new MTTextArea(app, fontArial); 
+		tekstfieldlinks = new MTTextArea(app, fontArial);
 		tekstfieldlinks.setNoStroke(true);
 		tekstfieldlinks.setNoFill(true);
 		tekstfieldlinks.setText(listItem.getTekstlinks());
@@ -83,7 +82,6 @@ public class ListItemView extends MTComponent {
 		});
 		this.addChild(tekstfieldrechts);
 		
-		
 		imageRect = new MTRectangle(0, 0, width, height, app);
 		PImage bgImage = app.loadImage(listItem.getAfbeelingpath());
 		imageRect.setTexture(bgImage);
@@ -112,6 +110,10 @@ public class ListItemView extends MTComponent {
 	
 	public float getX() {
 		return this.x;
+	}
+	
+	public float getY() {
+		return this.y;
 	}
 	
 	public void setSmall() {
