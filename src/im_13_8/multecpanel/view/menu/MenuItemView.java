@@ -1,5 +1,7 @@
 package im_13_8.multecpanel.view.menu;
 
+import im_13_8.multecpanel.Application;
+
 import org.mt4j.components.MTComponent;
 import org.mt4j.components.visibleComponents.font.FontManager;
 import org.mt4j.components.visibleComponents.font.IFont;
@@ -12,37 +14,26 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class MenuItemView extends MTComponent {
-	private MTColor transBlack = new MTColor(0, 0, 0, 200);
-	private MTColor digixRed = new MTColor(239,71,64);
-	private IFont fontMenuHeader;
 
 	public MenuItemView(float x, float y, float width, float height,
-			PApplet mtApplication, String name, String imgPathName, int indexInArray) {
-		super(mtApplication);
+			Application app, String name, String imgPathName, int indexInArray) {
+		super(app);
 		
 		this.translate(new Vector3D(x,y));
-		MTRectangle menuItemView = new MTRectangle(width, height, mtApplication);
+		MTRectangle menuItemView = new MTRectangle(width, height, app);
 		
-		IFont fontMenuHeader = FontManager.getInstance().createFont(mtApplication,
-				"MyriadPro-Regular.otf", 
-				87, 	//Font size
-				digixRed, //Fill Color
-				digixRed // Stroke Color
-		);
-		//Moet op termijn ingeladen worden op de start van de app
-		
-		PImage bgImage = mtApplication.loadImage(imgPathName);
+		PImage bgImage = app.loadImage(imgPathName);
 		
 		menuItemView.setTexture(bgImage);
 		menuItemView.setNoStroke(true);
 		this.addChild(menuItemView);
 		
-		MTRectangle transBox = new MTRectangle(0, height / 15 * 11, width, height / 15 * 4, mtApplication);
-		transBox.setFillColor(transBlack);
+		MTRectangle transBox = new MTRectangle(0, height / 15 * 11, width, height / 15 * 4, app);
+		transBox.setFillColor(app.getTransparantBlack());
 		transBox.setNoStroke(true);
 		this.addChild(transBox);
 		
-		MTTextArea textBox = new MTTextArea(mtApplication, fontMenuHeader);
+		MTTextArea textBox = new MTTextArea(app, app.getFontTitle());
 		this.addChild(textBox);
 
 		textBox.setNoFill(true);

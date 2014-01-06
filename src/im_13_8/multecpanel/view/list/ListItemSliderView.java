@@ -1,5 +1,6 @@
 package im_13_8.multecpanel.view.list;
 
+import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.entiteiten.ListItem;
 
 import java.util.ArrayList;
@@ -43,8 +44,8 @@ public class ListItemSliderView extends MTComponent {
 		return listitems;
 	}
 	
-	public ListItemSliderView(float x, float y, float width, float height, ArrayList<ListItem> listitems, PApplet pApplet) {
-		super(pApplet);
+	public ListItemSliderView(float x, float y, float width, float height, ArrayList<ListItem> listitems, Application app) {
+		super(app);
 		this.observers = new ArrayList<IListItemSliderObserver>();
 		this.listitems = listitems;
 		this.listitemViews = new ArrayList<ListItemView>();
@@ -53,7 +54,7 @@ public class ListItemSliderView extends MTComponent {
 		this.translate(new Vector3D(x, y));
 		this.distancebetween = (width / 2) - (width - (height * sizeSmallTiles) / 2);
 		
-		touchRect = new MTRectangle(0, 0, width, height, pApplet);
+		touchRect = new MTRectangle(0, 0, width, height, app);
 		touchRect.setFillColor(new MTColor(0, 0, 0, 0));
 		touchRect.setStrokeColor(new MTColor(0, 0, 0, 0));
 		touchRect.setAnchor(PositionAnchor.UPPER_LEFT);
@@ -112,7 +113,7 @@ public class ListItemSliderView extends MTComponent {
 		for (int i = 0; i < listitems.size(); i++) {
 			float position = (width / 2) - distancebetween * i;
 			
-			ListItemView liv = new ListItemView(position , height / 2, pApplet.width / 2.5f, height, listitems.get(i), pApplet);
+			ListItemView liv = new ListItemView(position , height / 2, app.width / 2.5f, height, listitems.get(i), app);
 			liv.addGestureListener(DragProcessor.class, new IGestureEventListener() {
 				
 				@Override
