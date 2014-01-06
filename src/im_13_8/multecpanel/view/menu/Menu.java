@@ -1,5 +1,6 @@
 package im_13_8.multecpanel.view.menu;
 
+import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.MenuController;
 import im_13_8.multecpanel.entiteiten.MenuItem;
 
@@ -14,13 +15,13 @@ public class Menu extends AbstractScene {
 	private int menuWidth;
 	private int menuHeight;
 
-	public Menu(MTApplication mtApplication, String name) {
-		super(mtApplication, name);
+	public Menu(Application app, String name) {
+		super(app, name);
 		
 		this.menuItems = new MenuController().getMenuItems();
 		this.listCount = this.menuItems.size();
-		this.menuWidth = mtApplication.width / this.listCount;
-		this.menuHeight = mtApplication.height;
+		this.menuWidth = app.width / this.listCount;
+		this.menuHeight = app.height;
 		
 		int indexInArray = 0;
 		
@@ -29,7 +30,7 @@ public class Menu extends AbstractScene {
 					0, 
 					menuWidth, 
 					menuHeight, 
-					mtApplication, 
+					app, 
 					menuItem.getName(), 
 					menuItem.getImgPath(),
 					indexInArray

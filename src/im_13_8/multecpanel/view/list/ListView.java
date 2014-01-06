@@ -1,5 +1,6 @@
 package im_13_8.multecpanel.view.list;
 
+import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.ListItemController;
 import im_13_8.multecpanel.entiteiten.Cluster;
 import im_13_8.multecpanel.entiteiten.ListItem;
@@ -24,7 +25,7 @@ public class ListView extends AbstractScene {
 	private ListItemSliderView listitemsliderview;
 	private SliderView slider;
 	
-	public ListView(MTApplication app, String name) {
+	public ListView(Application app, String name) {
 		super(app, name);
 		float imagesY = 313;
 		float sliderY = 975;

@@ -1,5 +1,6 @@
 package im_13_8.multecpanel.view.list;
 
+import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.entiteiten.Cluster;
 import im_13_8.multecpanel.entiteiten.ListItem;
 
@@ -33,7 +34,7 @@ public class SliderView extends MTComponent {
 	}
 	
 	public SliderView(float x, float y, ArrayList<Cluster> clusters, int length,
-			MTApplication app) {
+			Application app) {
 		super(app);
 		this.observers = new ArrayList<ISliderViewObserver>();
 		height = 10;
@@ -48,20 +49,12 @@ public class SliderView extends MTComponent {
 		createCirkel(app, 0, height);
 		createCirkel(app, width, height);
 		
-		MTColor white = new MTColor(255, 255, 255);
-		IFont fontArial = FontManager.getInstance().createFont(app, 
-				"MyriadPro-Regular.otf", 
-				25, 	//Font size
-				white,  //Font fill color
-				white
-		);	
-		
 		float nextY = 0;
 		for (Cluster cluster : clusters) {
 			nextY += cluster.getAantal() * itemwidth;
 			createCirkel(app, nextY, height);
 			
-			MTTextArea tekstfield = new MTTextArea(app, fontArial);
+			MTTextArea tekstfield = new MTTextArea(app, app.getFontText());
 			tekstfield.setNoStroke(true);
 			tekstfield.setNoFill(true);
 			tekstfield.setText(cluster.getNaam());
