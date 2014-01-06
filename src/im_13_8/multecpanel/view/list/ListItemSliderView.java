@@ -52,20 +52,12 @@ public class ListItemSliderView extends MTComponent {
 		this.translate(new Vector3D(x, y));
 		this.distancebetween = (width / 2) - (width - (height * sizeSmallTiles) / 2);
 		
-		for (int i = 0; i < listitems.size(); i++) {
-			float size = height;
-			float position = (width / 2) - distancebetween * i;
-			
-			listitemViews.add(new ListItemView(position , height / 2, size, size, listitems.get(i), pApplet));
-			checkPosition(listitemViews.get(i));
-			this.addChild(listitemViews.get(i));
-		}
-		
 		touchRect = new MTRectangle(0, 0, width, height, pApplet);
 		touchRect.setFillColor(new MTColor(0, 0, 0, 0));
 		touchRect.setStrokeColor(new MTColor(0, 0, 0, 0));
 		touchRect.setAnchor(PositionAnchor.UPPER_LEFT);
 		touchRect.setPositionRelativeToParent(new Vector3D(0, 0));
+		touchRect.removeAllGestureEventListeners();
 		touchRect.addGestureListener(DragProcessor.class, new IGestureEventListener() {
 			private float travelledX;
 			@Override
@@ -81,7 +73,6 @@ public class ListItemSliderView extends MTComponent {
 					moveListItemsViews(dragEvent.getTranslationVect().x);
 					break;
 				case MTGestureEvent.GESTURE_ENDED:
-					touchRect.setPositionRelativeToParent(new Vector3D(0, 0));
 					float travelXfurther = 0;
 					if(travelledX < 0) {
 						travelXfurther = distancebetween / 2;
@@ -116,6 +107,24 @@ public class ListItemSliderView extends MTComponent {
 			}
 		});
 		this.addChild(touchRect);
+		
+		for (int i = 0; i < listitems.size(); i++) {
+			float size = height;
+			float position = (width / 2) - distancebetween * i;
+			
+			ListItemView liv = new ListItemView(position , height / 2, size, size, listitems.get(i), pApplet);
+			liv.addGestureListener(DragProcessor.class, new IGestureEventListener() {
+				
+				@Override
+				public boolean processGestureEvent(MTGestureEvent ge) {
+					touchRect.processGestureEvent(ge);
+					return false;
+				}
+			});
+			listitemViews.add(liv);
+			checkPosition(listitemViews.get(i));
+			this.addChild(listitemViews.get(i));
+		}
 	}
 	
 	private void gotoClosestListItem() {

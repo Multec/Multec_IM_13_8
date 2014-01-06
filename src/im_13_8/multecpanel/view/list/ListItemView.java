@@ -11,6 +11,9 @@ import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle.PositionAnchor;
 import org.mt4j.components.visibleComponents.widgets.MTTextArea;
 import org.mt4j.components.visibleComponents.widgets.MTTextField;
+import org.mt4j.input.inputProcessors.IGestureEventListener;
+import org.mt4j.input.inputProcessors.MTGestureEvent;
+import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragProcessor;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Vector3D;
 
@@ -44,11 +47,22 @@ public class ListItemView extends MTComponent {
 				white,  //Font fill color
 				white);	//Font outline color
 		
+		final ListItemView liv = this;
+		
 		tekstfieldlinks = new MTTextArea(pApplet, fontArial); 
 		tekstfieldlinks.setNoStroke(true);
 		tekstfieldlinks.setNoFill(true);
 		tekstfieldlinks.setText(listItem.getTekstlinks());
 		tekstfieldlinks.setAnchor(PositionAnchor.LOWER_LEFT);
+		tekstfieldlinks.removeAllGestureEventListeners();
+		tekstfieldlinks.addGestureListener(DragProcessor.class, new IGestureEventListener() {
+			
+			@Override
+			public boolean processGestureEvent(MTGestureEvent ge) {
+				liv.processGestureEvent(ge);
+				return false;
+			}
+		});
 		this.addChild(tekstfieldlinks);
 		
 		tekstfieldrechts = new MTTextArea(pApplet, fontArial);
@@ -56,17 +70,33 @@ public class ListItemView extends MTComponent {
 		tekstfieldrechts.setNoFill(true);
 		tekstfieldrechts.setText(listItem.getTekstRechts());
 		tekstfieldrechts.setAnchor(PositionAnchor.LOWER_RIGHT);
+		tekstfieldrechts.removeAllGestureEventListeners();
+		tekstfieldrechts.addGestureListener(DragProcessor.class, new IGestureEventListener() {
+			
+			@Override
+			public boolean processGestureEvent(MTGestureEvent ge) {
+				liv.processGestureEvent(ge);
+				return false;
+			}
+		});
 		this.addChild(tekstfieldrechts);
 		
 		imageRect = new MTRectangle(0, 0, width, height - tekstfieldlinks.getHeightXY(TransformSpace.RELATIVE_TO_PARENT), pApplet);
 		imageRect.setFillColor(new MTColor(255, 0, 0));
 		imageRect.setAnchor(PositionAnchor.UPPER_LEFT);
+		imageRect.removeAllGestureEventListeners();
+		imageRect.addGestureListener(DragProcessor.class, new IGestureEventListener() {
+			
+			@Override
+			public boolean processGestureEvent(MTGestureEvent ge) {
+				liv.processGestureEvent(ge);
+				return false;
+			}
+		});
 		this.addChild(imageRect);
 		
 		this.isBig = true;
 		setSmall();
-		
-		clearAllGestures();
 	}
 	
 	public void translateX(float x) {
@@ -97,13 +127,6 @@ public class ListItemView extends MTComponent {
 			tekstfieldlinks.setPositionRelativeToParent(new Vector3D(0, height));
 			tekstfieldrechts.setPositionRelativeToParent(new Vector3D(width, height));
 			this.isBig = true;
-		}
-	}
-	
-	private void clearAllGestures() {
-		for (MTComponent comp : this.getChildren()) {
-			comp.unregisterAllInputProcessors();
-			comp.removeAllChildren();
 		}
 	}
 	

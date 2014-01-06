@@ -78,6 +78,12 @@ public class SliderView extends MTComponent {
 		this.slider.setPositionRelativeToParent(new Vector3D(0, - height / 2));
 		this.slider.addChild(new MTEllipse(app, new Vector3D(0, height), height, height));
 		this.slider.addChild(new MTEllipse(app, new Vector3D(itemwidth, height), height, height));
+		MTRectangle touchRect = new MTRectangle(0, 0, itemwidth * 1.5f, height  * 7, app);
+		touchRect.setAnchor(PositionAnchor.UPPER_LEFT);
+		touchRect.setNoFill(true);
+		touchRect.setNoStroke(true);
+		touchRect.setPositionRelativeToParent(new Vector3D(- itemwidth * 0.5f, - height * 6));
+		this.slider.addChild(touchRect);
 		for (MTComponent child : this.slider.getChildren()) {
 			child.removeAllGestureEventListeners();
 			child.addGestureListener(DragProcessor.class,  new IGestureEventListener() {
