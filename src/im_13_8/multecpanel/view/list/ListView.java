@@ -17,11 +17,13 @@ public class ListView extends AbstractScene {
 	
 	public ListView(MTApplication app, String name) {
 		super(app, name);
+		float imagesY = 313;
+		float sliderY = 925;
 		controller = new ListItemController();
 		ArrayList<ListItem> listitems = controller.getListitems();
 		clusters = controller.getClusters();
 		
-		listitemsliderview = new ListItemSliderView(0, 50, app.width, app.height / 2, listitems, app);
+		listitemsliderview = new ListItemSliderView(0, imagesY, app.width, app.height / 2.5f, listitems, app);
 		listitemsliderview.registerListItemSliderObserver(new IListItemSliderObserver() {
 			
 			@Override
@@ -33,7 +35,7 @@ public class ListView extends AbstractScene {
 		
 		this.getCanvas().addChild(listitemsliderview);
 		
-		slider = new SliderView(app.width / 2, app.height - 250, clusters, listitems.size(), app);
+		slider = new SliderView(app.width / 2, sliderY, clusters, listitems.size(), app);
 		slider.registerSliderViewObserver(new ISliderViewObserver() {
 			
 			@Override

@@ -32,7 +32,7 @@ public class SliderView extends MTComponent {
 		observers.add(observer);
 	}
 	
-	public SliderView(int x, int y, ArrayList<Cluster> clusters, int length,
+	public SliderView(float x, float y, ArrayList<Cluster> clusters, int length,
 			MTApplication app) {
 		super(app);
 		this.observers = new ArrayList<ISliderViewObserver>();
@@ -49,10 +49,12 @@ public class SliderView extends MTComponent {
 		createCirkel(app, width, height);
 		
 		MTColor white = new MTColor(255, 255, 255);
-		IFont fontArial = FontManager.getInstance().createFont(app, "arial.ttf", 
+		IFont fontArial = FontManager.getInstance().createFont(app, 
+				"MyriadPro-Regular.otf", 
 				25, 	//Font size
 				white,  //Font fill color
-				white);	//Font outline color
+				white
+		);	
 		
 		float nextY = 0;
 		for (Cluster cluster : clusters) {

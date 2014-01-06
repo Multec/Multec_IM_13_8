@@ -10,7 +10,6 @@ import org.mt4j.components.visibleComponents.font.IFont;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle.PositionAnchor;
 import org.mt4j.components.visibleComponents.widgets.MTTextArea;
-import org.mt4j.components.visibleComponents.widgets.MTTextField;
 import org.mt4j.input.inputProcessors.IGestureEventListener;
 import org.mt4j.input.inputProcessors.MTGestureEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragProcessor;
@@ -18,6 +17,7 @@ import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Vector3D;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class ListItemView extends MTComponent {
 	private ListItem listItem;
@@ -31,8 +31,8 @@ public class ListItemView extends MTComponent {
 	private float y;
 	private boolean isBig;
 	
-	public ListItemView(float x, float y, float width, float height, ListItem listItem, PApplet pApplet) {
-		super(pApplet);
+	public ListItemView(float x, float y, float width, float height, ListItem listItem, PApplet app) {
+		super(app);
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -42,18 +42,20 @@ public class ListItemView extends MTComponent {
 		this.translate(new Vector3D(x - width / 2, y - height / 2));
 		
 		MTColor white = new MTColor(255, 255, 255);
-		IFont fontArial = FontManager.getInstance().createFont(pApplet, "arial.ttf", 
+		IFont fontArial = FontManager.getInstance().createFont(app, 
+				"MyriadPro-Regular.otf", 
 				25, 	//Font size
 				white,  //Font fill color
-				white);	//Font outline color
+				white
+				);	
 		
 		final ListItemView liv = this;
 		
-		tekstfieldlinks = new MTTextArea(pApplet, fontArial); 
+		tekstfieldlinks = new MTTextArea(app, fontArial); 
 		tekstfieldlinks.setNoStroke(true);
 		tekstfieldlinks.setNoFill(true);
 		tekstfieldlinks.setText(listItem.getTekstlinks());
-		tekstfieldlinks.setAnchor(PositionAnchor.LOWER_LEFT);
+		tekstfieldlinks.setAnchor(PositionAnchor.UPPER_LEFT);
 		tekstfieldlinks.removeAllGestureEventListeners();
 		tekstfieldlinks.addGestureListener(DragProcessor.class, new IGestureEventListener() {
 			
@@ -65,11 +67,11 @@ public class ListItemView extends MTComponent {
 		});
 		this.addChild(tekstfieldlinks);
 		
-		tekstfieldrechts = new MTTextArea(pApplet, fontArial);
+		tekstfieldrechts = new MTTextArea(app, fontArial);
 		tekstfieldrechts.setNoStroke(true);
 		tekstfieldrechts.setNoFill(true);
 		tekstfieldrechts.setText(listItem.getTekstRechts());
-		tekstfieldrechts.setAnchor(PositionAnchor.LOWER_RIGHT);
+		tekstfieldrechts.setAnchor(PositionAnchor.UPPER_LEFT);
 		tekstfieldrechts.removeAllGestureEventListeners();
 		tekstfieldrechts.addGestureListener(DragProcessor.class, new IGestureEventListener() {
 			
@@ -81,8 +83,12 @@ public class ListItemView extends MTComponent {
 		});
 		this.addChild(tekstfieldrechts);
 		
-		imageRect = new MTRectangle(0, 0, width, height - tekstfieldlinks.getHeightXY(TransformSpace.RELATIVE_TO_PARENT), pApplet);
-		imageRect.setFillColor(new MTColor(255, 0, 0));
+		
+		imageRect = new MTRectangle(0, 0, width, height, app);
+		PImage bgImage = app.loadImage(listItem.getAfbeelingpath());
+		imageRect.setTexture(bgImage);
+		imageRect.setNoFill(false);
+		imageRect.setNoStroke(true);
 		imageRect.setAnchor(PositionAnchor.UPPER_LEFT);
 		imageRect.removeAllGestureEventListeners();
 		imageRect.addGestureListener(DragProcessor.class, new IGestureEventListener() {
@@ -114,7 +120,7 @@ public class ListItemView extends MTComponent {
 			imageRect.scale(smallratio,  smallratio, smallratio, new Vector3D(width / 2, height / 2));
 			imageRect.setPositionRelativeToParent(new Vector3D(width * side, height * side));
 			tekstfieldlinks.setPositionRelativeToParent(new Vector3D(width * side, height * (1 - side)));
-			tekstfieldrechts.setPositionRelativeToParent(new Vector3D(width * (1 - side), height * (1 - side)));
+			tekstfieldrechts.setPositionRelativeToParent(new Vector3D((width - tekstfieldrechts.getWidthXY(TransformSpace.RELATIVE_TO_PARENT)) * (1 - side), height * (1 - side)));
 			this.isBig = false;
 		}
 	}
@@ -125,7 +131,7 @@ public class ListItemView extends MTComponent {
 			imageRect.scale(bigratio,  bigratio, bigratio, new Vector3D(width / 2, height / 2));
 			imageRect.setPositionRelativeToParent(new Vector3D(0, 0));
 			tekstfieldlinks.setPositionRelativeToParent(new Vector3D(0, height));
-			tekstfieldrechts.setPositionRelativeToParent(new Vector3D(width, height));
+			tekstfieldrechts.setPositionRelativeToParent(new Vector3D(width - tekstfieldrechts.getWidthXY(TransformSpace.RELATIVE_TO_PARENT), height));
 			this.isBig = true;
 		}
 	}

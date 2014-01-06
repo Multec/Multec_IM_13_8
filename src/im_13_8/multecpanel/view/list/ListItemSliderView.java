@@ -110,10 +110,9 @@ public class ListItemSliderView extends MTComponent {
 		this.addChild(touchRect);
 		
 		for (int i = 0; i < listitems.size(); i++) {
-			float size = height;
 			float position = (width / 2) - distancebetween * i;
 			
-			ListItemView liv = new ListItemView(position , height / 2, size, size, listitems.get(i), pApplet);
+			ListItemView liv = new ListItemView(position , height / 2, pApplet.width / 2.5f, height, listitems.get(i), pApplet);
 			liv.addGestureListener(DragProcessor.class, new IGestureEventListener() {
 				
 				@Override
