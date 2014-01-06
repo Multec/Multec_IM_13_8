@@ -12,7 +12,7 @@ public class Application extends MTApplication {
 
 	@Override
 	public void startUp() {
-		this.addScene(new DetailView(this, "Menu"));
+		this.addScene(new ListView(this, "Menu"));
 	}
 
 	public static void main(String[] args) {

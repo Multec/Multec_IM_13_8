@@ -29,6 +29,7 @@ public class ListItemSliderView extends MTComponent {
 	private MTRectangle touchRect;
 	private float sizeSmallTiles = 0.8f;
 	private float distancebetween;
+	private Animation gotoAnimation;
 	
 	public void registerListItemSliderObserver(IListItemSliderObserver observer) {
 		observers.add(observer);
@@ -147,8 +148,11 @@ public class ListItemSliderView extends MTComponent {
 	}
 	
 	private void gotoX(float x) {
-		Animation animation = new Animation("goto", new MultiPurposeInterpolator(0, x, 300, 0, 1, 1), this);
-		animation.addAnimationListener(new IAnimationListener() {
+		if(gotoAnimation != null) {
+			gotoAnimation.stop();
+		}
+		gotoAnimation = new Animation("goto", new MultiPurposeInterpolator(0, x, 300, 0, 1, 1), this);
+		gotoAnimation.addAnimationListener(new IAnimationListener() {
 			@Override
 			public void processAnimationEvent(AnimationEvent ae) {
 				switch (ae.getId()) {
@@ -162,7 +166,7 @@ public class ListItemSliderView extends MTComponent {
 				}
 			}
 		});
-		animation.start();
+		gotoAnimation.start();
 	}
 	
 	private void checkPosition(ListItemView listItemView) {
