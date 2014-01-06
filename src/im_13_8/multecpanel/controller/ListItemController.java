@@ -1,5 +1,6 @@
 package im_13_8.multecpanel.controller;
 
+import im_13_8.multecpanel.entiteiten.Cluster;
 import im_13_8.multecpanel.entiteiten.ListItem;
 
 import java.util.ArrayList;
@@ -23,11 +24,11 @@ public class ListItemController {
 		return items;
 	}
 
-	public ArrayList<String> getClusters() {
-		ArrayList<String> clusters = new ArrayList<String>();
-		clusters.add("testen");
-		clusters.add("testen2");
-		clusters.add("testen3");
+	public ArrayList<Cluster> getClusters() {
+		ArrayList<Cluster> clusters = new ArrayList<Cluster>();
+		clusters.add(new Cluster("testen", 4));
+		clusters.add(new Cluster("testen2", 2));
+		clusters.add(new Cluster("testen3", 2));
 		return clusters;
 	}
 

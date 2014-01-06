@@ -5,7 +5,6 @@ import im_13_8.multecpanel.entiteiten.ListItem;
 import java.util.ArrayList;
 
 import org.mt4j.components.MTComponent;
-import org.mt4j.components.TransformSpace;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle.PositionAnchor;
 import org.mt4j.input.inputProcessors.IGestureEventListener;
@@ -22,6 +21,7 @@ import org.mt4j.util.math.Vector3D;
 import processing.core.PApplet;
 
 public class ListItemSliderView extends MTComponent {
+	private ArrayList<IListItemSliderObserver> observers;
 	private ArrayList<ListItem> listitems;
 	private ArrayList<ListItemView> listitemViews;
 	private float width;
@@ -30,8 +30,21 @@ public class ListItemSliderView extends MTComponent {
 	private float sizeSmallTiles = 0.8f;
 	private float distancebetween;
 	
+	public void registerListItemSliderObserver(IListItemSliderObserver observer) {
+		observers.add(observer);
+	}
+	
+	public float getHeight() {
+		return height;
+	}
+	
+	public ArrayList<ListItem> getListItems() {
+		return listitems;
+	}
+	
 	public ListItemSliderView(float x, float y, float width, float height, ArrayList<ListItem> listitems, PApplet pApplet) {
 		super(pApplet);
+		this.observers = new ArrayList<IListItemSliderObserver>();
 		this.listitems = listitems;
 		this.listitemViews = new ArrayList<ListItemView>();
 		this.width = width;
@@ -120,32 +133,43 @@ public class ListItemSliderView extends MTComponent {
 			}
 			
 			float translateX = mid - closest.getX();
-			Animation animation = new Animation("gotoclosest", new MultiPurposeInterpolator(0, translateX, 300, 0, 1, 1), this);
-			animation.addAnimationListener(new IAnimationListener() {
-				@Override
-				public void processAnimationEvent(AnimationEvent ae) {
-					switch (ae.getId()) {
-					case AnimationEvent.ANIMATION_STARTED:
-					case AnimationEvent.ANIMATION_UPDATED:
-					case AnimationEvent.ANIMATION_ENDED:
-						moveListItemsViews(ae.getCurrentStepDelta());
-						break;
-					default:
-						break;
-					}
-				}
-			});
-			animation.start();
+			gotoX(translateX);
 		}
+	}
+	
+	private void gotoX(float x) {
+		Animation animation = new Animation("goto", new MultiPurposeInterpolator(0, x, 300, 0, 1, 1), this);
+		animation.addAnimationListener(new IAnimationListener() {
+			@Override
+			public void processAnimationEvent(AnimationEvent ae) {
+				switch (ae.getId()) {
+				case AnimationEvent.ANIMATION_STARTED:
+				case AnimationEvent.ANIMATION_UPDATED:
+				case AnimationEvent.ANIMATION_ENDED:
+					moveListItemsViews(ae.getCurrentStepDelta());
+					break;
+				default:
+					break;
+				}
+			}
+		});
+		animation.start();
 	}
 	
 	private void checkPosition(ListItemView listItemView) {
 		float mid = this.width / 2;
 		if(Math.round(listItemView.getX()) == Math.round(mid)) {
 			listItemView.setBig();
+			notifyListItemSelected(listItemView.getListItem());
 		}
 		else {
 			listItemView.setSmall();
+		}
+	}
+	
+	public void notifyListItemSelected(ListItem item) {
+		for (IListItemSliderObserver observer : observers) {
+			observer.listItemSelected(this, item);
 		}
 	}
 
@@ -153,6 +177,15 @@ public class ListItemSliderView extends MTComponent {
 		for (ListItemView listItemView : listitemViews) {
 			listItemView.translateX(x);
 			checkPosition(listItemView);
+		}
+	}
+	
+	public void setPosition(int position) {
+		if(position >= 0 && position < listitems.size()) {
+			ListItemView listitemview = listitemViews.get(position);
+			float mid = width / 2;
+			float translateX = mid - listitemview.getX();
+			gotoX(translateX);
 		}
 	}
 }

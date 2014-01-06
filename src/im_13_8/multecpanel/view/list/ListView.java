@@ -1,6 +1,7 @@
 package im_13_8.multecpanel.view.list;
 
 import im_13_8.multecpanel.controller.ListItemController;
+import im_13_8.multecpanel.entiteiten.Cluster;
 import im_13_8.multecpanel.entiteiten.ListItem;
 
 import java.util.ArrayList;
@@ -10,8 +11,9 @@ import org.mt4j.sceneManagement.AbstractScene;
 
 public class ListView extends AbstractScene {
 	private ListItemController controller;
-	private ArrayList<String> clusters;
+	private ArrayList<Cluster> clusters;
 	private ListItemSliderView listitemsliderview;
+	private SliderView slider;
 	
 	public ListView(MTApplication app, String name) {
 		super(app, name);
@@ -20,9 +22,25 @@ public class ListView extends AbstractScene {
 		clusters = controller.getClusters();
 		
 		listitemsliderview = new ListItemSliderView(0, 50, app.width, app.height / 2, listitems, app);
+		listitemsliderview.registerListItemSliderObserver(new IListItemSliderObserver() {
+			
+			@Override
+			public void listItemSelected(ListItemSliderView view, ListItem item) {
+				int position = listitemsliderview.getListItems().indexOf(item);
+				slider.setPosition(position);
+			}
+		});
+		
 		this.getCanvas().addChild(listitemsliderview);
 		
-		SliderView slider = new SliderView(app.width / 2, app.height - 200, clusters, app);
+		slider = new SliderView(app.width / 2, app.height - 250, clusters, listitems.size(), app);
+		slider.registerSliderViewObserver(new ISliderViewObserver() {
+			
+			@Override
+			public void sliderViewChanged(int position) {
+				listitemsliderview.setPosition(position);
+			}
+		});
 		this.getCanvas().addChild(slider);
 	}
 

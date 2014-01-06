@@ -106,7 +106,7 @@ public class ListItemView extends MTComponent {
 			comp.removeAllChildren();
 		}
 	}
-
+	
 	public ListItem getListItem() {
 		return listItem;
 	}
