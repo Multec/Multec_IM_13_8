@@ -1,5 +1,6 @@
 package im_13_8.multecpanel.view.list;
 
+import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.entiteiten.ListItem;
 
 import org.mt4j.components.MTComponent;
@@ -30,7 +31,7 @@ public class ListItemView extends MTComponent {
 	private float y;
 	private boolean isBig;
 	
-	public ListItemView(float x, float y, float width, float height, ListItem listItem, PApplet app) {
+	public ListItemView(float x, float y, float width, float height, ListItem listItem, Application app) {
 		super(app);
 		this.x = x;
 		this.y = y;
@@ -40,17 +41,9 @@ public class ListItemView extends MTComponent {
 		this.listItem = listItem;
 		this.translate(new Vector3D(x - width / 2, y - height / 2));
 		
-		MTColor white = new MTColor(255, 255, 255);
-		IFont fontArial = FontManager.getInstance().createFont(app, 
-				"MyriadPro-Regular.otf", 
-				25, 	//Font size
-				white,  //Font fill color
-				white
-				);
-		
 		final ListItemView liv = this;
 		
-		tekstfieldlinks = new MTTextArea(app, fontArial);
+		tekstfieldlinks = new MTTextArea(app, app.getFontText());
 		tekstfieldlinks.setNoStroke(true);
 		tekstfieldlinks.setNoFill(true);
 		tekstfieldlinks.setText(listItem.getTekstlinks());
@@ -66,7 +59,7 @@ public class ListItemView extends MTComponent {
 		});
 		this.addChild(tekstfieldlinks);
 		
-		tekstfieldrechts = new MTTextArea(app, fontArial);
+		tekstfieldrechts = new MTTextArea(app, app.getFontText());
 		tekstfieldrechts.setNoStroke(true);
 		tekstfieldrechts.setNoFill(true);
 		tekstfieldrechts.setText(listItem.getTekstRechts());

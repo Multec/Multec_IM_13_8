@@ -3,14 +3,10 @@ package im_13_8.multecpanel.view.menu;
 import im_13_8.multecpanel.Application;
 
 import org.mt4j.components.MTComponent;
-import org.mt4j.components.visibleComponents.font.FontManager;
-import org.mt4j.components.visibleComponents.font.IFont;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.components.visibleComponents.widgets.MTTextArea;
-import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Vector3D;
 
-import processing.core.PApplet;
 import processing.core.PImage;
 
 public class MenuItemView extends MTComponent {

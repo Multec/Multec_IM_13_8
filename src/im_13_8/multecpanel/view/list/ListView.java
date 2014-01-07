@@ -4,20 +4,14 @@ import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.ListItemController;
 import im_13_8.multecpanel.entiteiten.Cluster;
 import im_13_8.multecpanel.entiteiten.ListItem;
+import im_13_8.multecpanel.view.util.Background;
 
 import java.util.ArrayList;
 
-import org.mt4j.MTApplication;
-import org.mt4j.components.visibleComponents.font.FontManager;
-import org.mt4j.components.visibleComponents.font.IFont;
-import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle.PositionAnchor;
 import org.mt4j.components.visibleComponents.widgets.MTTextArea;
 import org.mt4j.sceneManagement.AbstractScene;
-import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Vector3D;
-
-import processing.core.PImage;
 
 public class ListView extends AbstractScene {
 	private ListItemController controller;
@@ -33,27 +27,12 @@ public class ListView extends AbstractScene {
 		ArrayList<ListItem> listitems = controller.getListitems();
 		clusters = controller.getClusters();
 		
-		PImage backgroundimage = app.loadImage("images/background/background_erasmuslogo.png");
-		MTRectangle background = new MTRectangle(0, 0, app.width, app.height, app);
-		background.setTexture(backgroundimage);
-		background.setNoStroke(true);
-		background.setNoFill(false);
-		background.setAnchor(PositionAnchor.UPPER_LEFT);
-		background.setPositionRelativeToParent(new Vector3D(0, 0));
-		background.removeAllGestureEventListeners();
-		this.getCanvas().addChild(background);
+		this.getCanvas().addChild(new Background("images/background/background_erasmuslogo.png", app));
 		
-		MTColor red = new MTColor(255, 0, 0);
-		IFont fontArial = FontManager.getInstance().createFont(app, 
-				"MyriadPro-Regular.otf", 
-				50, 	//Font size
-				red,  //Font fill color
-				red
-		);	
 		MTTextArea textTitle = new MTTextArea(app);
 		textTitle.setNoFill(true);
 		textTitle.setNoStroke(true);
-		textTitle.setFont(fontArial);
+		textTitle.setFont(app.getFontTitle());
 		textTitle.setText(name);
 		textTitle.setAnchor(PositionAnchor.UPPER_LEFT);
 		textTitle.setPositionRelativeToParent(new Vector3D(50, 50));

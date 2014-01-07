@@ -45,7 +45,7 @@ public class Application extends MTApplication {
 		);
 
 		this.frameRate(60);
-		this.addScene(new DetailView(this, "Menu"));
+		this.addScene(new HomeScene(this, "Menu"));
 	}
 
 	public static void main(String[] args) {
