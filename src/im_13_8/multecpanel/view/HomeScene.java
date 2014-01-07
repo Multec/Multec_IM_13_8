@@ -8,7 +8,11 @@ import im_13_8.multecpanel.entiteiten.Richting;
 import im_13_8.multecpanel.view.util.ArrowLeft;
 import im_13_8.multecpanel.view.util.ArrowRight;
 import im_13_8.multecpanel.view.util.Background;
+import im_13_8.multecpanel.view.util.BounceBackX;
+import im_13_8.multecpanel.view.util.IBounceBackObserver;
 
+import org.mt4j.components.MTComponent;
+import org.mt4j.components.interfaces.IMTComponent;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle.PositionAnchor;
 import org.mt4j.input.inputProcessors.IGestureEventListener;
@@ -24,10 +28,15 @@ import org.mt4j.util.math.Vector3D;
 
 import processing.core.PImage;
 
-public class HomeScene extends AbstractScene {
+public class HomeScene extends AbstractScene implements IBounceBackObserver{
 	private HomeController controller;
 	private ArrayList<ArrowRight> arrowsRight;
 	private ArrayList<ArrowLeft> arrowsLeft;
+	private PImage ehbImage;
+	private PImage ehbImageBright;
+	private float ehbWidth;
+	private MTRectangle ehbLogo;
+	private float midX;
 
 	public HomeScene(Application app, String name) {
 		super(app, name);
@@ -42,66 +51,20 @@ public class HomeScene extends AbstractScene {
 		transBox.setNoStroke(true);
 		transBox.removeAllGestureEventListeners();
 		this.getCanvas().addChild(transBox);
-		
-		//multec logo
-		float multecWidth = 469;
-		float multecHeight = 146;
-		MTRectangle multecLogo = new MTRectangle(0, 0,  multecWidth, multecHeight, app);
-		PImage multecImage = app.loadImage("images/logos/multec.png");
-		multecLogo.setTexture(multecImage);
-		multecLogo.setNoStroke(true);
-		multecLogo.removeAllGestureEventListeners();
-		multecLogo.setAnchor(PositionAnchor.UPPER_LEFT);
-		multecLogo.setPositionRelativeToParent(new Vector3D(0, app.height / 2 - multecHeight / 2));
-		transBox.addChild(multecLogo);
-		multecLogo.addGestureListener(DragProcessor.class, new IGestureEventListener() {
-			
-			@Override
-			public boolean processGestureEvent(MTGestureEvent ge) {
-				DragEvent dragEvent = (DragEvent)ge;
-				switch (dragEvent.getId()) {
-				case MTGestureEvent.GESTURE_DETECTED:
-					break;
-				case MTGestureEvent.GESTURE_UPDATED:
-					break;
-				case MTGestureEvent.GESTURE_ENDED:
-					break;
-				}
-				return false;
-			}
-		});
+		this.midX = app.width / 2;
 		
 		//ehb logo
-		float ehbWidth = 377;
+		ehbWidth = 377;
 		float ehbHeight = 290;
-		MTRectangle ehbLogo = new MTRectangle(0, 0,  ehbWidth, ehbHeight, app);
-		PImage ehbImage = app.loadImage("images/logos/ehblogo.png");
+		ehbLogo = new MTRectangle(0, 0,  ehbWidth, ehbHeight, app);
+		ehbImage = app.loadImage("images/logos/ehblogo.png");
+		ehbImageBright = app.loadImage("images/logos/ehblogo_bright.png");
 		ehbLogo.setTexture(ehbImage);
 		ehbLogo.setNoStroke(true);
 		ehbLogo.removeAllGestureEventListeners();
 		ehbLogo.setAnchor(PositionAnchor.UPPER_LEFT);
-		ehbLogo.setPositionRelativeToParent(new Vector3D(app.width / 2 - ehbWidth / 2, app.height / 2 - ehbHeight / 2));
+		ehbLogo.setPositionRelativeToParent(new Vector3D(midX - ehbWidth / 2, app.height / 2 - ehbHeight / 2));
 		transBox.addChild(ehbLogo);
-		
-		//digx logo
-		float digxWidth = 378;
-		float digxHeight = 204;
-		MTRectangle digxLogo = new MTRectangle(0, 0,  digxWidth, digxHeight, app);
-		PImage digxImage = app.loadImage("images/logos/digx.png");
-		digxLogo.setTexture(digxImage);
-		digxLogo.setNoStroke(true);
-		digxLogo.removeAllGestureEventListeners();
-		digxLogo.setAnchor(PositionAnchor.UPPER_LEFT);
-		digxLogo.setPositionRelativeToParent(new Vector3D(app.width - digxWidth, app.height / 2 - digxHeight / 2));
-		transBox.addChild(digxLogo);
-		digxLogo.addGestureListener(DragProcessor.class, new IGestureEventListener() {
-			
-			@Override
-			public boolean processGestureEvent(MTGestureEvent ge) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-		});
 		
 		arrowsRight = new ArrayList<ArrowRight>();
 		float firstArrowRightX = 494; //609 - 494 = 115
@@ -125,7 +88,7 @@ public class HomeScene extends AbstractScene {
 			arrowsLeft.add(toTheLeft);
 		}
 		
-		Animation arrowsBlinking = new Animation("arrowsBlinking", new MultiPurposeInterpolator(0, 2, 2000, 0, 0, -1), this);
+		Animation arrowsBlinking = new Animation("arrowsBlinking", new MultiPurposeInterpolator(0, 2, 2000, 0, 1, -1), this);
 		arrowsBlinking.addAnimationListener(new IAnimationListener() {
 			@Override
 			public void processAnimationEvent(AnimationEvent ae) {
@@ -141,6 +104,33 @@ public class HomeScene extends AbstractScene {
 			}
 		});
 		arrowsBlinking.start();
+		
+		//multec logo
+		float multecWidth = 469;
+		float multecHeight = 146;
+		MTRectangle multecLogo = new MTRectangle(0, 0,  multecWidth, multecHeight, app);
+		PImage multecImage = app.loadImage("images/logos/multec.png");
+		multecLogo.setTexture(multecImage);
+		multecLogo.setNoStroke(true);
+		multecLogo.removeAllGestureEventListeners();
+		multecLogo.setAnchor(PositionAnchor.UPPER_LEFT);
+		multecLogo.setPositionRelativeToParent(new Vector3D(0, app.height / 2 - multecHeight / 2));
+		transBox.addChild(multecLogo);
+		final float midX = app.width / 2 - multecWidth;
+		multecLogo.addGestureListener(DragProcessor.class, new BounceBackX("multec", this));
+		
+		//digx logo
+		float digxWidth = 378;
+		float digxHeight = 204;
+		MTRectangle digxLogo = new MTRectangle(0, 0,  digxWidth, digxHeight, app);
+		PImage digxImage = app.loadImage("images/logos/digx.png");
+		digxLogo.setTexture(digxImage);
+		digxLogo.setNoStroke(true);
+		digxLogo.removeAllGestureEventListeners();
+		digxLogo.setAnchor(PositionAnchor.UPPER_LEFT);
+		digxLogo.setPositionRelativeToParent(new Vector3D(app.width - digxWidth, app.height / 2 - digxHeight / 2));
+		transBox.addChild(digxLogo);
+		digxLogo.addGestureListener(DragProcessor.class, new BounceBackX("digx", this));
 	}
 
 	@Override
@@ -150,6 +140,30 @@ public class HomeScene extends AbstractScene {
 	@Override
 	public void shutDown() {
 		
+	}
+
+	@Override
+	public void releasedOn(String name, float travelledX, MTComponent component) {
+		if(name == "multec" && travelledX >= midX - ehbWidth && travelledX <= midX) {
+			// open multec
+		} 
+		else if(name == "digx" && travelledX <= -midX + ehbWidth && travelledX >= -midX) {
+			// open digx
+		}
+		ehbLogo.setTexture(ehbImage);
+	}
+
+	@Override
+	public void hoveredOn(String name, float travelledX, MTComponent target) {
+		if(name == "multec" && travelledX >= midX - ehbWidth && travelledX <= midX) {
+			ehbLogo.setTexture(ehbImageBright);
+		} 
+		else if(name == "digx" && travelledX <= -midX + ehbWidth && travelledX >= -midX) {
+			ehbLogo.setTexture(ehbImageBright);
+		}
+		else {
+			ehbLogo.setTexture(ehbImage);
+		}
 	}
 
 }
