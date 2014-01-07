@@ -2,14 +2,10 @@ package im_13_8.multecpanel.view.list;
 
 import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.entiteiten.Cluster;
-import im_13_8.multecpanel.entiteiten.ListItem;
-
 import java.util.ArrayList;
 
 import org.mt4j.MTApplication;
 import org.mt4j.components.MTComponent;
-import org.mt4j.components.visibleComponents.font.FontManager;
-import org.mt4j.components.visibleComponents.font.IFont;
 import org.mt4j.components.visibleComponents.shapes.MTEllipse;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle.PositionAnchor;
@@ -18,7 +14,6 @@ import org.mt4j.input.inputProcessors.IGestureEventListener;
 import org.mt4j.input.inputProcessors.MTGestureEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragProcessor;
-import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Vector3D;
 
 public class SliderView extends MTComponent {

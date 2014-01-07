@@ -7,6 +7,7 @@ import im_13_8.multecpanel.entiteiten.ListItem;
 import im_13_8.multecpanel.entiteiten.ParentEntiteit;
 import im_13_8.multecpanel.view.util.BackButton;
 import im_13_8.multecpanel.view.util.Background;
+import im_13_8.multecpanel.view.util.CustomTransition;
 import im_13_8.multecpanel.view.util.IBackButtonObserver;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class ListView extends AbstractScene implements IBackButtonObserver {
 	private SliderView slider;
 	private ParentEntiteit parent;
 	private Application app;
+	private CustomTransition transition;
 	
 	public ListView(Application app, String name, ParentEntiteit parent) {
 		super(app, name);
@@ -36,13 +38,13 @@ public class ListView extends AbstractScene implements IBackButtonObserver {
 		
 		this.getCanvas().addChild(new Background("images/background/background_erasmuslogo.png", app));
 		
-		MTTextArea textTitle = new MTTextArea(app);
+		MTTextArea textTitle = new MTTextArea(app, app.getFontTitle());
 		textTitle.setNoFill(true);
 		textTitle.setNoStroke(true);
-		textTitle.setFont(app.getFontTitle());
 		textTitle.setText(name);
 		textTitle.setAnchor(PositionAnchor.UPPER_LEFT);
 		textTitle.setPositionRelativeToParent(new Vector3D(50, 50));
+		textTitle.removeAllGestureEventListeners();
 		this.getCanvas().addChild(textTitle);
 		
 		listitemsliderview = new ListItemSliderView(0, imagesY, app.width, app.height / 2.5f, listitems, app);
@@ -69,6 +71,8 @@ public class ListView extends AbstractScene implements IBackButtonObserver {
 		
 		BackButton backButton = new BackButton(app, this);
 		this.getCanvas().addChild(backButton);
+		transition = new CustomTransition(app);
+		this.setTransition(transition);
 	}
 
 	@Override
@@ -83,6 +87,7 @@ public class ListView extends AbstractScene implements IBackButtonObserver {
 
 	@Override
 	public void goBack() {
+		transition.setDirection("down");
 		app.goToScene(parent.getParentSoort(), parent.getParentID(), parent.getParent());
 	}
 

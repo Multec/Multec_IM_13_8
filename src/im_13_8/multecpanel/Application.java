@@ -86,8 +86,9 @@ public class Application extends MTApplication {
 	
 	public void goToScene(String soortScene, String sceneID, ParentEntiteit parent) {
 		System.out.println(this.getScenes().length);
-		Iscene scene = this.getCurrentScene();
 		System.out.println(Runtime.getRuntime().totalMemory() + "/" + Runtime.getRuntime().maxMemory());
+		Iscene scene = this.getCurrentScene();
+		
 		if (soortScene == "menu") { 
 			this.changeScene(new Menu(this, sceneID, parent));
 		} else if (soortScene == "detail") {
@@ -99,6 +100,11 @@ public class Application extends MTApplication {
 		} else {
 			//this.changeScene(new Panorama(this, sceneID));
 		}
-		this.removeScene(scene);
+		
+		/*for (Iscene scene : this.getScenes()) {
+			if(scene != this.getCurrentScene()) {
+				this.removeScene(scene);
+			}
+		}*/
 	}
 }

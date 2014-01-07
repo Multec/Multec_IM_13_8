@@ -8,6 +8,7 @@ import im_13_8.multecpanel.view.detail.DetailView;
 import im_13_8.multecpanel.view.list.ListView;
 import im_13_8.multecpanel.view.util.BackButton;
 import im_13_8.multecpanel.view.util.BounceBack;
+import im_13_8.multecpanel.view.util.CustomTransition;
 import im_13_8.multecpanel.view.util.IBackButtonObserver;
 import im_13_8.multecpanel.view.util.IBounceBackObserver;
 
@@ -33,6 +34,7 @@ public class Menu extends AbstractScene implements IBounceBackObserver, IBackBut
 	private int menuHeight;
 	private Application app;
 	private ParentEntiteit parent;
+	private CustomTransition transition;
 
 	public Menu(Application app, String name, ParentEntiteit parent) {
 		super(app, name);
@@ -80,6 +82,9 @@ public class Menu extends AbstractScene implements IBounceBackObserver, IBackBut
 		
 		BackButton backButton = new BackButton(app, this);
 		this.getCanvas().addChild(backButton);
+		
+		transition = new CustomTransition(app);
+		this.setTransition(transition);
 	}
 
 	@Override
@@ -96,10 +101,6 @@ public class Menu extends AbstractScene implements IBounceBackObserver, IBackBut
 
 	@Override
 	public boolean releasedOn(Object args, float travelled, MTComponent component) {
-		if (travelled < -250) {
-			this.gotoScene(args, this.app);
-			return true;
-		}
 		return false;
 	}
 
@@ -111,16 +112,23 @@ public class Menu extends AbstractScene implements IBounceBackObserver, IBackBut
 		
 		ParentEntiteit parent = new ParentEntiteit("menu", this.getName());
 		parent.setParent(this.parent);
+		
+		transition.setDirection("up");
 		app.goToScene(menuSoort, menuID, parent);
 	}
 
 	@Override
 	public boolean hoveredOn(Object args, float travelled, MTComponent target) {
+		if (travelled < -100) {
+			this.gotoScene(args, this.app);
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public void goBack() {
+		transition.setDirection("down");
 		app.goToScene(parent.getParentSoort(), parent.getParentID(), parent.getParent());
 	}
 }

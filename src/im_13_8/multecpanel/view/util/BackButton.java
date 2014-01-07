@@ -46,7 +46,7 @@ public class BackButton extends MTEllipse {
 			
 			@Override
 			public boolean hoveredOn(Object args, float travelled, MTComponent target) {
-				if(travelled > 100) {
+				if(travelled > 50) {
 					obs.goBack();
 					return true;
 				}

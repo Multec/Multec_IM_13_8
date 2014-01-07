@@ -6,20 +6,16 @@ import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.HomeController;
 import im_13_8.multecpanel.entiteiten.Richting;
 import im_13_8.multecpanel.entiteiten.ParentEntiteit;
-import im_13_8.multecpanel.view.menu.Menu;
 import im_13_8.multecpanel.view.util.ArrowLeft;
 import im_13_8.multecpanel.view.util.ArrowRight;
 import im_13_8.multecpanel.view.util.Background;
 import im_13_8.multecpanel.view.util.BounceBack;
+import im_13_8.multecpanel.view.util.CustomTransition;
 import im_13_8.multecpanel.view.util.IBounceBackObserver;
 
 import org.mt4j.components.MTComponent;
-import org.mt4j.components.interfaces.IMTComponent;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle.PositionAnchor;
-import org.mt4j.input.inputProcessors.IGestureEventListener;
-import org.mt4j.input.inputProcessors.MTGestureEvent;
-import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragProcessor;
 import org.mt4j.sceneManagement.AbstractScene;
 import org.mt4j.util.animation.Animation;
@@ -41,6 +37,7 @@ public class HomeScene extends AbstractScene implements IBounceBackObserver{
 	private float midX;
 	private Application app;
 	private ArrayList<Richting> richtingen;
+	private CustomTransition transition;
 
 	public HomeScene(Application app, String name) {
 		super(app, name);
@@ -136,6 +133,10 @@ public class HomeScene extends AbstractScene implements IBounceBackObserver{
 		digxLogo.setPositionRelativeToParent(new Vector3D(app.width - digxWidth, app.height / 2 - digxHeight / 2));
 		transBox.addChild(digxLogo);
 		digxLogo.addGestureListener(DragProcessor.class, new BounceBack("digx", this));
+		
+		transition = new CustomTransition(app);
+		transition.setDirection("up");
+		this.setTransition(transition); 
 	}
 
 	@Override
