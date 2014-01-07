@@ -4,6 +4,7 @@ import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.ListItemController;
 import im_13_8.multecpanel.entiteiten.Cluster;
 import im_13_8.multecpanel.entiteiten.ListItem;
+import im_13_8.multecpanel.view.util.BackButton;
 import im_13_8.multecpanel.view.util.Background;
 
 import java.util.ArrayList;
@@ -59,6 +60,9 @@ public class ListView extends AbstractScene {
 			}
 		});
 		this.getCanvas().addChild(slider);
+		
+		BackButton backButton = new BackButton(app);
+		this.getCanvas().addChild(backButton);
 	}
 
 	@Override

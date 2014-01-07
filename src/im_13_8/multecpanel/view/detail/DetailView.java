@@ -3,6 +3,7 @@ package im_13_8.multecpanel.view.detail;
 import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.DetailController;
 import im_13_8.multecpanel.entiteiten.DetailInfo;
+import im_13_8.multecpanel.view.util.BackButton;
 
 import org.mt4j.MTApplication;
 import org.mt4j.components.visibleComponents.font.FontManager;
@@ -50,22 +51,8 @@ public class DetailView extends AbstractScene {
 		omschrijving.translate(new Vector3D(25, app.height/20 * 17));
 		this.getCanvas().addChild(omschrijving);
 		
-		MTEllipse back = new MTEllipse(app, new Vector3D(860,0), 75, 75);
-		back.setFillColor(app.getTransparantBlack());
-		back.setNoStroke(true);
-		this.getCanvas().addChild(back);
-		
-		MTLine pijl1 = new MTLine(app, new Vertex(830, 20), new Vertex(860, 50));
-		pijl1.setNoFill(true);
-		pijl1.setFillColor(app.getTransparantWhite());
-		pijl1.setStrokeWeight(3);
-		getCanvas().addChild(pijl1);
-		
-		MTLine pijl2 = new MTLine(app, new Vertex(860, 50), new Vertex(890, 20));
-		pijl2.setNoFill(true);
-		pijl2.setFillColor(app.getTransparantWhite());
-		pijl2.setStrokeWeight(3);
-		getCanvas().addChild(pijl2);
+		BackButton backButton = new BackButton(app);
+		this.getCanvas().addChild(backButton);
 	}
 		
 

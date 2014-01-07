@@ -3,6 +3,7 @@ package im_13_8.multecpanel.view.menu;
 import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.MenuController;
 import im_13_8.multecpanel.entiteiten.MenuItem;
+import im_13_8.multecpanel.view.util.BackButton;
 
 import java.util.ArrayList;
 
@@ -39,6 +40,9 @@ public class Menu extends AbstractScene {
 			indexInArray++;
 			this.getCanvas().addChild(temp);
 		}
+		
+		BackButton backButton = new BackButton(app);
+		this.getCanvas().addChild(backButton);
 	}
 
 	@Override
