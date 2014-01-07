@@ -17,6 +17,7 @@ public class BounceBack implements IGestureEventListener {
 	private boolean moveHorizontal;
 	private boolean enablePositive;
 	private boolean enableNegative;
+	private Animation animation;
 	
 	public BounceBack(Object args, IBounceBackObserver observer) {
 		this(args, observer, true);
@@ -36,10 +37,17 @@ public class BounceBack implements IGestureEventListener {
 		this.moveHorizontal = moveHorizontal;
 		this.enablePositive = enablePositive;
 		this.enableNegative = enableNegative;
-	} 
+	}
+	
+	public void stopAnimation() {
+		if(this.animation != null) {
+			this.animation.stop();
+		}
+	}
 	
 	@Override
 	public boolean processGestureEvent(MTGestureEvent ge) {
+		boolean canStopAnimation = false;
 		boolean canMove = true;
 		DragEvent dragEvent = (DragEvent)ge;
 		MTComponent target = (MTComponent)ge.getTargetComponent();
@@ -67,7 +75,9 @@ public class BounceBack implements IGestureEventListener {
 				target.translate(dragEvent.getTranslationVect());
 			}
 			if(observer != null) {
-				observer.hoveredOn(args, travelled, target);
+				if(observer.hoveredOn(args, travelled, target)) {
+					canStopAnimation = true;
+				}
 			}
 			break;
 		case MTGestureEvent.GESTURE_UPDATED:
@@ -76,14 +86,19 @@ public class BounceBack implements IGestureEventListener {
 				target.translate(dragEvent.getTranslationVect());
 			}
 			if(observer != null) {
-				observer.hoveredOn(args, travelled, target);
+				if(observer.hoveredOn(args, travelled, target)) {
+					canStopAnimation = true;
+				}
 			}
 			break;
 		case MTGestureEvent.GESTURE_ENDED:
 			if(observer != null) {
-				observer.releasedOn(args, travelled, target);
+				if(observer.releasedOn(args, travelled, target)){
+					canStopAnimation = true;
+				}
 			}
-			Animation animation = new Animation("Returns", new MultiPurposeInterpolator(0, -travelled, 500, 0, 1, 1), target);
+			stopAnimation();
+			animation = new Animation("Returns", new MultiPurposeInterpolator(0, -travelled, 500, 0, 1, 1), target);
 			animation.addAnimationListener(new IAnimationListener() {	
 				@Override
 				public void processAnimationEvent(AnimationEvent ae) {
@@ -99,6 +114,9 @@ public class BounceBack implements IGestureEventListener {
 			});
 			animation.start();
 			break;
+		}
+		if(canStopAnimation) {
+			stopAnimation();
 		}
 		return false;
 	}

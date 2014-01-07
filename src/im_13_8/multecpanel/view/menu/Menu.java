@@ -3,7 +3,7 @@ package im_13_8.multecpanel.view.menu;
 import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.MenuController;
 import im_13_8.multecpanel.entiteiten.MenuItem;
-import im_13_8.multecpanel.entiteiten.parentEntiteit;
+import im_13_8.multecpanel.entiteiten.ParentEntiteit;
 import im_13_8.multecpanel.view.detail.DetailView;
 import im_13_8.multecpanel.view.list.ListView;
 import im_13_8.multecpanel.view.util.BackButton;
@@ -32,9 +32,9 @@ public class Menu extends AbstractScene implements IBounceBackObserver, IBackBut
 	private int menuWidth;
 	private int menuHeight;
 	private Application app;
-	private parentEntiteit parent;
+	private ParentEntiteit parent;
 
-	public Menu(Application app, String name, parentEntiteit parent) {
+	public Menu(Application app, String name, ParentEntiteit parent) {
 		super(app, name);
 		this.app = app;
 		this.menuItems = new MenuController(name).getMenuItems();
@@ -95,10 +95,12 @@ public class Menu extends AbstractScene implements IBounceBackObserver, IBackBut
 	}
 
 	@Override
-	public void releasedOn(Object args, float travelled, MTComponent component) {
+	public boolean releasedOn(Object args, float travelled, MTComponent component) {
 		if (travelled < -250) {
 			this.gotoScene(args, this.app);
+			return true;
 		}
+		return false;
 	}
 
 	protected void gotoScene(Object args, Application app) {
@@ -107,17 +109,18 @@ public class Menu extends AbstractScene implements IBounceBackObserver, IBackBut
 		String menuSoort = menuitem.getmenuSoort(); //Speeding up the following if...else
 		String menuID = menuitem.getMenuID();
 		
-		parentEntiteit parent = new parentEntiteit("menu", this.getName());
+		ParentEntiteit parent = new ParentEntiteit("menu", this.getName());
+		parent.setParent(this.parent);
 		app.goToScene(menuSoort, menuID, parent);
 	}
 
 	@Override
-	public void hoveredOn(Object args, float travelled, MTComponent target) {
-		
+	public boolean hoveredOn(Object args, float travelled, MTComponent target) {
+		return false;
 	}
 
 	@Override
 	public void goBack() {
-		//app.goToScene(parent.getParentSoort(), parent.getParentID());
+		app.goToScene(parent.getParentSoort(), parent.getParentID(), parent.getParent());
 	}
 }

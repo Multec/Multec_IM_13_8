@@ -4,6 +4,7 @@ import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.ListItemController;
 import im_13_8.multecpanel.entiteiten.Cluster;
 import im_13_8.multecpanel.entiteiten.ListItem;
+import im_13_8.multecpanel.entiteiten.ParentEntiteit;
 import im_13_8.multecpanel.view.util.BackButton;
 import im_13_8.multecpanel.view.util.Background;
 import im_13_8.multecpanel.view.util.IBackButtonObserver;
@@ -20,14 +21,18 @@ public class ListView extends AbstractScene implements IBackButtonObserver {
 	private ArrayList<Cluster> clusters;
 	private ListItemSliderView listitemsliderview;
 	private SliderView slider;
+	private ParentEntiteit parent;
+	private Application app;
 	
-	public ListView(Application app, String name) {
+	public ListView(Application app, String name, ParentEntiteit parent) {
 		super(app, name);
+		this.app = app;
 		float imagesY = 313;
 		float sliderY = 975;
 		controller = new ListItemController();
 		ArrayList<ListItem> listitems = controller.getListitems();
 		clusters = controller.getClusters();
+		this.parent = parent;
 		
 		this.getCanvas().addChild(new Background("images/background/background_erasmuslogo.png", app));
 		
@@ -68,19 +73,17 @@ public class ListView extends AbstractScene implements IBackButtonObserver {
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void shutDown() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void goBack() {
-		
+		app.goToScene(parent.getParentSoort(), parent.getParentID(), parent.getParent());
 	}
 
 }

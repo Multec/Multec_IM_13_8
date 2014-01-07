@@ -3,6 +3,7 @@ package im_13_8.multecpanel.view.detail;
 import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.DetailController;
 import im_13_8.multecpanel.entiteiten.DetailInfo;
+import im_13_8.multecpanel.entiteiten.ParentEntiteit;
 import im_13_8.multecpanel.view.util.BackButton;
 import im_13_8.multecpanel.view.util.IBackButtonObserver;
 
@@ -23,9 +24,14 @@ public class DetailView extends AbstractScene implements IBackButtonObserver {
 	
 	private DetailController controller;
 	private DetailInfo detailInfo;
+	private ParentEntiteit parent;
+	private Application app;
 	
-	public DetailView(Application app, String name){
+	public DetailView(Application app, String name, ParentEntiteit parent){
 		super(app, name);
+		this.parent = parent;
+		this.app = app;
+		
 		
 		controller = new DetailController();
 		detailInfo = controller.getDetailInfo();
@@ -66,7 +72,7 @@ public class DetailView extends AbstractScene implements IBackButtonObserver {
 
 	@Override
 	public void goBack() {
-		
+		app.goToScene(parent.getParentSoort(), parent.getParentID(), parent.getParent());
 	}
 	
 }

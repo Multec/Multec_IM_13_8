@@ -40,14 +40,17 @@ public class BackButton extends MTEllipse {
 		this.addGestureListener(DragProcessor.class, new BounceBack(null, new IBounceBackObserver() {
 			
 			@Override
-			public void releasedOn(Object args, float travelled, MTComponent component) {
+			public boolean releasedOn(Object args, float travelled, MTComponent component) {
+				return false;
 			}
 			
 			@Override
-			public void hoveredOn(Object args, float travelled, MTComponent target) {
+			public boolean hoveredOn(Object args, float travelled, MTComponent target) {
 				if(travelled > 100) {
 					obs.goBack();
+					return true;
 				}
+				return false;
 			}
 		}, false, true, false));
 	}

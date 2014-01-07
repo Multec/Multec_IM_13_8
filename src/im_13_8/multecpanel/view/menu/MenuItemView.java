@@ -118,12 +118,5 @@ public class MenuItemView extends MTComponent {
 	public boolean isColored() {
 		return colored;
 	}
-	
-	private void clearAllGestures() {
-		for (MTComponent comp : this.getChildren()) {
-			comp.unregisterAllInputProcessors();
-			//comp.removeAllChildren();
-		}
-	}
 
 }

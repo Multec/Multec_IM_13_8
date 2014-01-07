@@ -1,10 +1,11 @@
 package im_13_8.multecpanel.entiteiten;
 
-public class parentEntiteit {
+public class ParentEntiteit {
 	private String parentSoort;
 	private String parentID;
+	private ParentEntiteit parent;
 	
-	public parentEntiteit(String parentSoort, String parentID) {
+	public ParentEntiteit(String parentSoort, String parentID) {
 		this.parentSoort = parentSoort;
 		this.parentID = parentID;
 	}
@@ -15,5 +16,13 @@ public class parentEntiteit {
 	
 	public String getParentID() {
 		return this.parentID;
+	}
+
+	public ParentEntiteit getParent() {
+		return parent;
+	}
+
+	public void setParent(ParentEntiteit parent) {
+		this.parent = parent;
 	}
 }
