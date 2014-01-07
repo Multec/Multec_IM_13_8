@@ -35,7 +35,7 @@ public class MenuItemView extends MTComponent {
 		textBox.setNoFill(true);
 		textBox.setNoStroke(true);
 		textBox.setText(name);
-		textBox.setPositionRelativeToParent(new Vector3D(width / 2, height/10 * 8));
+		textBox.setPositionRelativeToParent(new Vector3D(width / 2, height/10 * 8.5f));
 		clearAllGestures();
 	}
 	

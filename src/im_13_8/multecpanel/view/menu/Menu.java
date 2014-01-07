@@ -19,7 +19,7 @@ public class Menu extends AbstractScene {
 	public Menu(Application app, String name) {
 		super(app, name);
 		
-		this.menuItems = new MenuController().getMenuItems();
+		this.menuItems = new MenuController(name).getMenuItems();
 		this.listCount = this.menuItems.size();
 		this.menuWidth = app.width / this.listCount;
 		this.menuHeight = app.height;
