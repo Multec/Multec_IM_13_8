@@ -1,6 +1,6 @@
 package im_13_8.multecpanel.entiteiten;
 
-public class MenuItem {
+public class MenuItem{
 	private String menuName;
 	private String menuImgPath;
 	private String menuID;

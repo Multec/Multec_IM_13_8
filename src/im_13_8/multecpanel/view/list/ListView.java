@@ -6,6 +6,7 @@ import im_13_8.multecpanel.entiteiten.Cluster;
 import im_13_8.multecpanel.entiteiten.ListItem;
 import im_13_8.multecpanel.view.util.BackButton;
 import im_13_8.multecpanel.view.util.Background;
+import im_13_8.multecpanel.view.util.IBackButtonObserver;
 
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ import org.mt4j.components.visibleComponents.widgets.MTTextArea;
 import org.mt4j.sceneManagement.AbstractScene;
 import org.mt4j.util.math.Vector3D;
 
-public class ListView extends AbstractScene {
+public class ListView extends AbstractScene implements IBackButtonObserver {
 	private ListItemController controller;
 	private ArrayList<Cluster> clusters;
 	private ListItemSliderView listitemsliderview;
@@ -61,7 +62,7 @@ public class ListView extends AbstractScene {
 		});
 		this.getCanvas().addChild(slider);
 		
-		BackButton backButton = new BackButton(app);
+		BackButton backButton = new BackButton(app, this);
 		this.getCanvas().addChild(backButton);
 	}
 
@@ -75,6 +76,11 @@ public class ListView extends AbstractScene {
 	public void shutDown() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void goBack() {
+		
 	}
 
 }

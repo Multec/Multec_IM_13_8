@@ -1,7 +1,12 @@
 package im_13_8.multecpanel;
 
 import im_13_8.multecpanel.entiteiten.Richting;
+import im_13_8.multecpanel.entiteiten.parentEntiteit;
 import im_13_8.multecpanel.view.HomeScene;
+import im_13_8.multecpanel.view.detail.DetailView;
+import im_13_8.multecpanel.view.list.ListView;
+import im_13_8.multecpanel.view.menu.Menu;
+
 import org.mt4j.MTApplication;
 import org.mt4j.components.visibleComponents.font.FontManager;
 import org.mt4j.components.visibleComponents.font.IFont;
@@ -76,5 +81,19 @@ public class Application extends MTApplication {
 
 	public Richting getRichting() {
 		return this.richting;
+	}
+	
+	public void goToScene(String soortScene, String sceneID, parentEntiteit parent) {
+		if (soortScene == "menu") { 
+			this.changeScene(new Menu(this, sceneID, parent));
+		} else if (soortScene == "detail") {
+			//this.changeScene(new DetailView(this, sceneID, parent));
+		} else if (soortScene == "list") {
+			//this.changeScene(new ListView(this, sceneID, parent));
+		} else if (soortScene == "hoofdMenu") {
+			this.changeScene(new HomeScene(this, sceneID));
+		} else {
+			//this.changeScene(new Panorama(this, sceneID));
+		}
 	}
 }

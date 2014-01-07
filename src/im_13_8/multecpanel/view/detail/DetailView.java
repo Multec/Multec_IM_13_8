@@ -4,6 +4,7 @@ import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.DetailController;
 import im_13_8.multecpanel.entiteiten.DetailInfo;
 import im_13_8.multecpanel.view.util.BackButton;
+import im_13_8.multecpanel.view.util.IBackButtonObserver;
 
 import org.mt4j.MTApplication;
 import org.mt4j.components.visibleComponents.font.FontManager;
@@ -18,7 +19,7 @@ import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Vector3D;
 import org.mt4j.util.math.Vertex;
 
-public class DetailView extends AbstractScene {
+public class DetailView extends AbstractScene implements IBackButtonObserver {
 	
 	private DetailController controller;
 	private DetailInfo detailInfo;
@@ -51,7 +52,7 @@ public class DetailView extends AbstractScene {
 		omschrijving.translate(new Vector3D(25, app.height/20 * 17));
 		this.getCanvas().addChild(omschrijving);
 		
-		BackButton backButton = new BackButton(app);
+		BackButton backButton = new BackButton(app, this);
 		this.getCanvas().addChild(backButton);
 	}
 		
@@ -60,6 +61,12 @@ public class DetailView extends AbstractScene {
 	}
 
 	public void shutDown() {
+	}
+
+
+	@Override
+	public void goBack() {
+		
 	}
 	
 }

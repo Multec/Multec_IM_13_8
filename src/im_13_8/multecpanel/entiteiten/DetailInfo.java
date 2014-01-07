@@ -1,6 +1,6 @@
 package im_13_8.multecpanel.entiteiten;
 
-public class DetailInfo {
+public class DetailInfo{
 	private String vakNaam;
 	private String vakOmschrijving;
 	private String vakImgPath;

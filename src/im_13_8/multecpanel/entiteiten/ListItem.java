@@ -1,6 +1,6 @@
 package im_13_8.multecpanel.entiteiten;
 
-public class ListItem {
+public class ListItem{
 	private String afbeelingpath;
 	private String tekstlinks;
 	private String tekstRechts;
@@ -49,7 +49,6 @@ public class ListItem {
 
 	public ListItem(String afbeelingpath, String tekstlinks,
 			String tekstRechts, String soort, String cluster) {
-		super();
 		this.afbeelingpath = afbeelingpath;
 		this.tekstlinks = tekstlinks;
 		this.tekstRechts = tekstRechts;

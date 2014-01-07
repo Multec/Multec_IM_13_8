@@ -27,11 +27,15 @@ public class BounceBack implements IGestureEventListener {
 	}
 	
 	public BounceBack(Object args, IBounceBackObserver observer, boolean moveHorizontal, boolean enablePositive) {
+		this(args, observer, moveHorizontal, enablePositive, true);
+	}
+	
+	public BounceBack(Object args, IBounceBackObserver observer, boolean moveHorizontal, boolean enablePositive, boolean enableNegative) {
 		this.observer = observer;
 		this.args = args;
 		this.moveHorizontal = moveHorizontal;
 		this.enablePositive = enablePositive;
-		this.enableNegative = true;
+		this.enableNegative = enableNegative;
 	} 
 	
 	@Override

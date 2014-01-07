@@ -3,10 +3,12 @@ package im_13_8.multecpanel.view.menu;
 import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.MenuController;
 import im_13_8.multecpanel.entiteiten.MenuItem;
+import im_13_8.multecpanel.entiteiten.parentEntiteit;
 import im_13_8.multecpanel.view.detail.DetailView;
 import im_13_8.multecpanel.view.list.ListView;
 import im_13_8.multecpanel.view.util.BackButton;
 import im_13_8.multecpanel.view.util.BounceBack;
+import im_13_8.multecpanel.view.util.IBackButtonObserver;
 import im_13_8.multecpanel.view.util.IBounceBackObserver;
 
 import java.util.ArrayList;
@@ -24,20 +26,22 @@ import org.mt4j.util.animation.IAnimationListener;
 import org.mt4j.util.animation.MultiPurposeInterpolator;
 import org.mt4j.util.math.Vector3D;
 
-public class Menu extends AbstractScene implements IBounceBackObserver {
+public class Menu extends AbstractScene implements IBounceBackObserver, IBackButtonObserver {
 	private ArrayList<MenuItem> menuItems;
 	private int listCount;
 	private int menuWidth;
 	private int menuHeight;
 	private Application app;
+	private parentEntiteit parent;
 
-	public Menu(Application app, String name) {
+	public Menu(Application app, String name, parentEntiteit parent) {
 		super(app, name);
 		this.app = app;
 		this.menuItems = new MenuController(name).getMenuItems();
 		this.listCount = this.menuItems.size();
 		this.menuWidth = app.width / this.listCount;
 		this.menuHeight = app.height;
+		this.parent = parent;
 		
 		int indexInArray = 0;
 		
@@ -74,7 +78,7 @@ public class Menu extends AbstractScene implements IBounceBackObserver {
 			});
 		}
 		
-		BackButton backButton = new BackButton(app);
+		BackButton backButton = new BackButton(app, this);
 		this.getCanvas().addChild(backButton);
 	}
 
@@ -103,20 +107,17 @@ public class Menu extends AbstractScene implements IBounceBackObserver {
 		String menuSoort = menuitem.getmenuSoort(); //Speeding up the following if...else
 		String menuID = menuitem.getMenuID();
 		
-		if (menuSoort == "menu") { //From most used to least used - optimized to the max!
-			app.changeScene(new Menu(app, menuID));
-		} else if (menuSoort == "detail") {
-			app.changeScene(new DetailView(app, menuID));
-		} else if (menuSoort == "list") {
-			app.changeScene(new ListView(app, menuID));
-		} else {
-			//app.changeScene(new Panorama(app, menuID));
-		}
-		
+		parentEntiteit parent = new parentEntiteit("menu", this.getName());
+		app.goToScene(menuSoort, menuID, parent);
 	}
 
 	@Override
 	public void hoveredOn(Object args, float travelled, MTComponent target) {
 		
+	}
+
+	@Override
+	public void goBack() {
+		//app.goToScene(parent.getParentSoort(), parent.getParentID());
 	}
 }

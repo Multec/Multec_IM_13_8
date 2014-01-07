@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.HomeController;
 import im_13_8.multecpanel.entiteiten.Richting;
+import im_13_8.multecpanel.entiteiten.parentEntiteit;
 import im_13_8.multecpanel.view.menu.Menu;
 import im_13_8.multecpanel.view.util.ArrowLeft;
 import im_13_8.multecpanel.view.util.ArrowRight;
@@ -152,7 +153,8 @@ public class HomeScene extends AbstractScene implements IBounceBackObserver{
 		if(name == "multec" && travelledX >= midX - ehbWidth && travelledX <= midX) {
 			// open multec
 			app.setRichting(richtingen.get(0));
-			app.changeScene(new Menu(app, "hoofdMenu"));
+			parentEntiteit parent = new parentEntiteit("hoofdMenu", "hoofdmenu");
+			app.changeScene(new Menu(app, "hoofdMenu", parent));
 		} 
 		else if(name == "digx" && travelledX <= -midX + ehbWidth && travelledX >= -midX) {
 			// open digx
