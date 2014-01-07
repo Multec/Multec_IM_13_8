@@ -15,48 +15,62 @@ public class BounceBack implements IGestureEventListener {
 	private IBounceBackObserver observer;
 	private String name;
 	private boolean moveHorizontal;
+	private boolean enablePositive;
+	private boolean enableNegative;
 	
 	public BounceBack(String name, IBounceBackObserver observer) {
 		this(name, observer, true);
 	}
 	
 	public BounceBack(String name, IBounceBackObserver observer, boolean moveHorizontal) {
+		this(name, observer, moveHorizontal, true);
+	}
+	
+	public BounceBack(String name, IBounceBackObserver observer, boolean moveHorizontal, boolean enablePositive) {
 		this.observer = observer;
 		this.name = name;
 		this.moveHorizontal = moveHorizontal;
-	}
+		this.enablePositive = enablePositive;
+		this.enableNegative = true;
+	} 
 	
 	@Override
 	public boolean processGestureEvent(MTGestureEvent ge) {
+		boolean canMove = true;
 		DragEvent dragEvent = (DragEvent)ge;
 		MTComponent target = (MTComponent)ge.getTargetComponent();
+		float value = 0;
 		if(moveHorizontal) {
 			dragEvent.getTranslationVect().setY(0);
+			value = dragEvent.getTranslationVect().x;
 		}
 		else {
 			dragEvent.getTranslationVect().setX(0);
+			value = dragEvent.getTranslationVect().y;
+		}
+		if(!this.enablePositive && value > 0) {
+			value = 0;
+			canMove = false;
+		}
+		if(!this.enableNegative && value < 0) {
+			value = 0;
+			canMove = false;
 		}
 		switch (dragEvent.getId()) {
 		case MTGestureEvent.GESTURE_DETECTED:
-			if(moveHorizontal) {
-				travelled = dragEvent.getTranslationVect().x;
+			travelled = value;
+			if(canMove) {
+				target.translate(dragEvent.getTranslationVect());
 			}
-			else {
-				travelled = dragEvent.getTranslationVect().y;
-			}
-			target.translate(dragEvent.getTranslationVect());
 			if(observer != null) {
 				observer.hoveredOn(name, travelled, target);
 			}
 			break;
 		case MTGestureEvent.GESTURE_UPDATED:
-			if(moveHorizontal) {
-				travelled += dragEvent.getTranslationVect().x;
+			travelled += value;
+			if(canMove) {
+				target.translate(dragEvent.getTranslationVect());
 			}
-			else {
-				travelled += dragEvent.getTranslationVect().y;
-			}
-			target.translate(dragEvent.getTranslationVect());
 			if(observer != null) {
 				observer.hoveredOn(name, travelled, target);
 			}

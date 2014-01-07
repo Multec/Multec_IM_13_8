@@ -19,6 +19,7 @@ public class BackButton extends MTEllipse {
 		this.addChild(arrow);
 		arrow.setNormal();
 		arrow.setPositionRelativeToParent(new Vector3D(app.width / 2 ,25));
+		
 	}
 	
 	
