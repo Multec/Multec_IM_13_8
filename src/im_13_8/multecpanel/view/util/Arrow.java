@@ -16,6 +16,7 @@ public class Arrow extends MTRectangle {
 		this.normal = app.loadImage(pathNormal);
 		this.bright = app.loadImage(pathBright);
 		this.setNoStroke(true);
+		this.removeAllChildren();
 		setNormal();
 	}
 	

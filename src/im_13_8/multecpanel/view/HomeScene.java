@@ -8,7 +8,7 @@ import im_13_8.multecpanel.entiteiten.Richting;
 import im_13_8.multecpanel.view.util.ArrowLeft;
 import im_13_8.multecpanel.view.util.ArrowRight;
 import im_13_8.multecpanel.view.util.Background;
-import im_13_8.multecpanel.view.util.BounceBackX;
+import im_13_8.multecpanel.view.util.BounceBack;
 import im_13_8.multecpanel.view.util.IBounceBackObserver;
 
 import org.mt4j.components.MTComponent;
@@ -117,7 +117,7 @@ public class HomeScene extends AbstractScene implements IBounceBackObserver{
 		multecLogo.setPositionRelativeToParent(new Vector3D(0, app.height / 2 - multecHeight / 2));
 		transBox.addChild(multecLogo);
 		final float midX = app.width / 2 - multecWidth;
-		multecLogo.addGestureListener(DragProcessor.class, new BounceBackX("multec", this));
+		multecLogo.addGestureListener(DragProcessor.class, new BounceBack("multec", this));
 		
 		//digx logo
 		float digxWidth = 378;
@@ -130,7 +130,7 @@ public class HomeScene extends AbstractScene implements IBounceBackObserver{
 		digxLogo.setAnchor(PositionAnchor.UPPER_LEFT);
 		digxLogo.setPositionRelativeToParent(new Vector3D(app.width - digxWidth, app.height / 2 - digxHeight / 2));
 		transBox.addChild(digxLogo);
-		digxLogo.addGestureListener(DragProcessor.class, new BounceBackX("digx", this));
+		digxLogo.addGestureListener(DragProcessor.class, new BounceBack("digx", this));
 	}
 
 	@Override
