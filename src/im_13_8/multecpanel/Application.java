@@ -31,21 +31,24 @@ public class Application extends MTApplication {
 		white = new MTColor(255, 255, 255);
 		transparantWhite = new MTColor(255,255,255, 150);
 		fontTitle = FontManager.getInstance().createFont(this,
-				"MyriadPro-Regular.otf", 
+				"MyriadPro-Light.svg", 
 				87, 	//Font size
 				digixRed, //Fill Color
 				digixRed // Stroke Color
 		);
 		
 		fontText = FontManager.getInstance().createFont(this, 
-				"MyriadPro-Regular.otf", 
-				25, 	//Font size
+				"MyriadPro-Light.svg", 
+				30, 	//Font size
 				white,  //Font fill color
 				white   //Font stroke color
 		);
-
+		
+		
 		this.frameRate(60);
-		this.addScene(new DetailView(this, "Menu"));
+		//this.addScene(new Menu(this, "Menu")); //Menu
+		this.addScene(new DetailView(this, "DetailView")); //Detailscherm
+		//this.addScene(new ListView(this, "ListView")); //Slider
 	}
 
 	public static void main(String[] args) {
