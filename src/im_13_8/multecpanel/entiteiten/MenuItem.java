@@ -5,11 +5,13 @@ public class MenuItem {
 	private String menuImgPath;
 	private String menuID;
 	private String menuImgPathColor;
+	private String menuSoort;
 
-	public MenuItem(String menuName, String menuImgPath, String menuImgPathColor, String menuID) {
+	public MenuItem(String menuName, String menuImgPath, String menuImgPathColor, String menuID, String menuSoort) {
 		this.menuName = menuName;
 		this.menuImgPath = menuImgPath;
 		this.menuID = menuID;
+		this.menuSoort = menuSoort;
 		this.setMenuImgPathColor(menuImgPathColor);
 	}
 	
@@ -27,6 +29,14 @@ public class MenuItem {
 
 	public void setMenuImgPathColor(String menuImgPathColor) {
 		this.menuImgPathColor = menuImgPathColor;
+	}
+
+	public String getMenuID() {
+		return menuID;
+	}
+	
+	public String getmenuSoort() {
+		return this.menuSoort;
 	}
 	
 }

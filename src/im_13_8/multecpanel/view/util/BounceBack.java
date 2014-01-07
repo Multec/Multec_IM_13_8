@@ -13,22 +13,22 @@ import org.mt4j.util.math.Vector3D;
 public class BounceBack implements IGestureEventListener {
 	private float travelled;
 	private IBounceBackObserver observer;
-	private String name;
+	private Object args;
 	private boolean moveHorizontal;
 	private boolean enablePositive;
 	private boolean enableNegative;
 	
-	public BounceBack(String name, IBounceBackObserver observer) {
-		this(name, observer, true);
+	public BounceBack(Object args, IBounceBackObserver observer) {
+		this(args, observer, true);
 	}
 	
-	public BounceBack(String name, IBounceBackObserver observer, boolean moveHorizontal) {
-		this(name, observer, moveHorizontal, true);
+	public BounceBack(Object args, IBounceBackObserver observer, boolean moveHorizontal) {
+		this(args, observer, moveHorizontal, true);
 	}
 	
-	public BounceBack(String name, IBounceBackObserver observer, boolean moveHorizontal, boolean enablePositive) {
+	public BounceBack(Object args, IBounceBackObserver observer, boolean moveHorizontal, boolean enablePositive) {
 		this.observer = observer;
-		this.name = name;
+		this.args = args;
 		this.moveHorizontal = moveHorizontal;
 		this.enablePositive = enablePositive;
 		this.enableNegative = true;
@@ -63,7 +63,7 @@ public class BounceBack implements IGestureEventListener {
 				target.translate(dragEvent.getTranslationVect());
 			}
 			if(observer != null) {
-				observer.hoveredOn(name, travelled, target);
+				observer.hoveredOn(args, travelled, target);
 			}
 			break;
 		case MTGestureEvent.GESTURE_UPDATED:
@@ -72,12 +72,12 @@ public class BounceBack implements IGestureEventListener {
 				target.translate(dragEvent.getTranslationVect());
 			}
 			if(observer != null) {
-				observer.hoveredOn(name, travelled, target);
+				observer.hoveredOn(args, travelled, target);
 			}
 			break;
 		case MTGestureEvent.GESTURE_ENDED:
 			if(observer != null) {
-				observer.releasedOn(name, travelled, target);
+				observer.releasedOn(args, travelled, target);
 			}
 			Animation animation = new Animation("Returns", new MultiPurposeInterpolator(0, -travelled, 500, 0, 1, 1), target);
 			animation.addAnimationListener(new IAnimationListener() {	

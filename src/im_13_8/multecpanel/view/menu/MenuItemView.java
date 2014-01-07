@@ -1,6 +1,8 @@
 package im_13_8.multecpanel.view.menu;
 
 import im_13_8.multecpanel.Application;
+import im_13_8.multecpanel.entiteiten.MenuItem;
+import im_13_8.multecpanel.view.util.ArrowUp;
 
 import org.mt4j.components.MTComponent;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
@@ -26,20 +28,21 @@ public class MenuItemView extends MTComponent {
 	private MTRectangle menuItemView;
 	private MTRectangle menuItemViewColored;
 	private Animation fadeout;
+	private ArrowUp arrow;
 	
 	public MenuItemView(float x, float y, float width, float height,
-			Application app, String name, String imgPathName, String imgcolor, int indexInArray) {
+			Application app, MenuItem menuItem, int indexInArray) {
 		super(app);
 		
 		this.translate(new Vector3D(x,y));
 		menuItemView = new MTRectangle(width, height, app);
-		bgImage = app.loadImage(imgPathName);
+		bgImage = app.loadImage(menuItem.getImgPath());
 		menuItemView.setTexture(bgImage);
 		menuItemView.setNoStroke(true);
 		this.addChild(menuItemView);
 		
 		menuItemViewColored = new MTRectangle(width, height, app);
-		bgImageColor = app.loadImage(imgcolor);
+		bgImageColor = app.loadImage(menuItem.getMenuImgPathColor());
 		menuItemViewColored.setTexture(bgImageColor);
 		menuItemViewColored.setFillColor(new MTColor(255, 255, 255, 0));
 		menuItemViewColored.setNoStroke(true);
@@ -56,7 +59,7 @@ public class MenuItemView extends MTComponent {
 
 		textBox.setNoFill(true);
 		textBox.setNoStroke(true);
-		textBox.setText(name);
+		textBox.setText(menuItem.getName());
 		textBox.setPositionRelativeToParent(new Vector3D(width / 2, height/10 * 8.5f));
 		
 		final MTComponent component = this;
@@ -81,15 +84,22 @@ public class MenuItemView extends MTComponent {
 				}
 			});
 		}
+		
+		arrow = new ArrowUp(app);
+		this.addChild(arrow);
+		arrow.setPositionRelativeToParent(new Vector3D(width / 2, app.height / 20 * 19));
+		
 	}
 	
 	public void setColored() {
 		menuItemViewColored.setFillColor(new MTColor(255, 255, 255, 255));
+		this.arrow.setBright();
 		colored = true;
 	}
 	
 	public void setBlackWhite() {
 		menuItemViewColored.setFillColor(new MTColor(255, 255, 255, 0));
+		this.arrow.setNormal();
 		colored = false;
 		if(fadeout != null) {
 			fadeout.stop();
@@ -99,8 +109,6 @@ public class MenuItemView extends MTComponent {
 			
 			@Override
 			public void processAnimationEvent(AnimationEvent ae) {
-				// TODO Auto-generated method stub
-				System.out.println(ae.getCurrentStepDelta());
 				menuItemViewColored.setFillColor(new MTColor(255, 255, 255, ae.getCurrentValue()));
 			}
 		});
@@ -110,8 +118,6 @@ public class MenuItemView extends MTComponent {
 	public boolean isColored() {
 		return colored;
 	}
-	
-	//pijltjes nog toevoegen
 	
 	private void clearAllGestures() {
 		for (MTComponent comp : this.getChildren()) {

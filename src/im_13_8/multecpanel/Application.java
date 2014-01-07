@@ -1,11 +1,7 @@
 package im_13_8.multecpanel;
 
+import im_13_8.multecpanel.entiteiten.Richting;
 import im_13_8.multecpanel.view.HomeScene;
-import im_13_8.multecpanel.view.detail.DetailView;
-import im_13_8.multecpanel.view.list.ListView;
-import im_13_8.multecpanel.view.menu.Menu;
-import im_13_8.multecpanel.view.*;
-
 import org.mt4j.MTApplication;
 import org.mt4j.components.visibleComponents.font.FontManager;
 import org.mt4j.components.visibleComponents.font.IFont;
@@ -19,6 +15,7 @@ public class Application extends MTApplication {
 	private MTColor digixRed;
 	private MTColor white;
 	private MTColor transparantWhite;
+	private Richting richting;
 
 	@Override
 	public void startUp() {
@@ -46,7 +43,7 @@ public class Application extends MTApplication {
 		
 		
 		this.frameRate(60);
-		this.addScene(new Menu(this, "studie"));
+		this.addScene(new HomeScene(this, "Kies een richting"));
 	}
 
 	public static void main(String[] args) {
@@ -73,4 +70,11 @@ public class Application extends MTApplication {
 		return this.transparantWhite;
 	}
 
+	public void setRichting(Richting richting) {
+		this.richting = richting;
+	}
+
+	public Richting getRichting() {
+		return this.richting;
+	}
 }

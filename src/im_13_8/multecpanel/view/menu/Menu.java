@@ -3,6 +3,8 @@ package im_13_8.multecpanel.view.menu;
 import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.MenuController;
 import im_13_8.multecpanel.entiteiten.MenuItem;
+import im_13_8.multecpanel.view.detail.DetailView;
+import im_13_8.multecpanel.view.list.ListView;
 import im_13_8.multecpanel.view.util.BackButton;
 import im_13_8.multecpanel.view.util.BounceBack;
 import im_13_8.multecpanel.view.util.IBounceBackObserver;
@@ -27,10 +29,11 @@ public class Menu extends AbstractScene implements IBounceBackObserver {
 	private int listCount;
 	private int menuWidth;
 	private int menuHeight;
+	private Application app;
 
 	public Menu(Application app, String name) {
 		super(app, name);
-		
+		this.app = app;
 		this.menuItems = new MenuController(name).getMenuItems();
 		this.listCount = this.menuItems.size();
 		this.menuWidth = app.width / this.listCount;
@@ -44,15 +47,13 @@ public class Menu extends AbstractScene implements IBounceBackObserver {
 					menuWidth, 
 					menuHeight, 
 					app, 
-					menuItem.getName(), 
-					menuItem.getImgPath(),
-					menuItem.getMenuImgPathColor(),
+					menuItem,
 					indexInArray
 			);
 			
 			indexInArray++;
 			this.getCanvas().addChild(temp);
-			temp.addGestureListener(DragProcessor.class, new BounceBack(menuItem.getName(), this, false, false));
+			temp.addGestureListener(DragProcessor.class, new BounceBack(menuItem, this, false, false));
 			temp.addGestureListener(TapProcessor.class, new IGestureEventListener() {
 				
 				@Override
@@ -90,13 +91,32 @@ public class Menu extends AbstractScene implements IBounceBackObserver {
 	}
 
 	@Override
-	public void releasedOn(String name, float travelled, MTComponent component) {
+	public void releasedOn(Object args, float travelled, MTComponent component) {
+		if (travelled < -250) {
+			this.gotoScene(args, this.app);
+		}
+	}
+
+	protected void gotoScene(Object args, Application app) {
+		MenuItem menuitem = (MenuItem)args;
+		
+		String menuSoort = menuitem.getmenuSoort(); //Speeding up the following if...else
+		String menuID = menuitem.getMenuID();
+		
+		if (menuSoort == "menu") { //From most used to least used - optimized to the max!
+			app.changeScene(new Menu(app, menuID));
+		} else if (menuSoort == "detail") {
+			app.changeScene(new DetailView(app, menuID));
+		} else if (menuSoort == "list") {
+			app.changeScene(new ListView(app, menuID));
+		} else {
+			//app.changeScene(new Panorama(app, menuID));
+		}
 		
 	}
 
 	@Override
-	public void hoveredOn(String name, float travelled, MTComponent target) {
-		// TODO Auto-generated method stub
+	public void hoveredOn(Object args, float travelled, MTComponent target) {
 		
 	}
 }

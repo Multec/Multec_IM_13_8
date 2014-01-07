@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.HomeController;
 import im_13_8.multecpanel.entiteiten.Richting;
+import im_13_8.multecpanel.view.menu.Menu;
 import im_13_8.multecpanel.view.util.ArrowLeft;
 import im_13_8.multecpanel.view.util.ArrowRight;
 import im_13_8.multecpanel.view.util.Background;
@@ -37,11 +38,14 @@ public class HomeScene extends AbstractScene implements IBounceBackObserver{
 	private float ehbWidth;
 	private MTRectangle ehbLogo;
 	private float midX;
+	private Application app;
+	private ArrayList<Richting> richtingen;
 
 	public HomeScene(Application app, String name) {
 		super(app, name);
+		this.app = app;
 		controller = new HomeController();
-		ArrayList<Richting> richtingen = controller.getRichtingen();
+		richtingen = controller.getRichtingen();
 		
 		this.getCanvas().addChild(new Background("images/background/homeScherm.jpg", app));
 		
@@ -143,9 +147,12 @@ public class HomeScene extends AbstractScene implements IBounceBackObserver{
 	}
 
 	@Override
-	public void releasedOn(String name, float travelledX, MTComponent component) {
+	public void releasedOn(Object args, float travelledX, MTComponent component) {
+		String name = (String)args;
 		if(name == "multec" && travelledX >= midX - ehbWidth && travelledX <= midX) {
 			// open multec
+			app.setRichting(richtingen.get(0));
+			app.changeScene(new Menu(app, "hoofdMenu"));
 		} 
 		else if(name == "digx" && travelledX <= -midX + ehbWidth && travelledX >= -midX) {
 			// open digx
@@ -154,7 +161,8 @@ public class HomeScene extends AbstractScene implements IBounceBackObserver{
 	}
 
 	@Override
-	public void hoveredOn(String name, float travelledX, MTComponent target) {
+	public void hoveredOn(Object args, float travelledX, MTComponent target) {
+		String name = (String)args;
 		if(name == "multec" && travelledX >= midX - ehbWidth && travelledX <= midX) {
 			ehbLogo.setTexture(ehbImageBright);
 		} 
