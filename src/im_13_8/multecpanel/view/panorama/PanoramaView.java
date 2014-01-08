@@ -103,13 +103,12 @@ public class PanoramaView extends CustomScene {
 				event.getTranslationVect().setY(0);
 				comp.translate(event.getTranslationVect());
 				float currentx = comp.getPosition(TransformSpace.RELATIVE_TO_PARENT).x;
-				System.out.println(currentx);
-				if(currentx > imagewidth - appwidth) {
-					comp.setPositionGlobal(new Vector3D(appwidth - imagewidth, 0));
+				if(currentx > imagewidth) {
+					comp.setPositionGlobal(new Vector3D(0, 0));
 				}
 				
 				if(currentx < appwidth - imagewidth) {
-					comp.setPositionGlobal(new Vector3D(imagewidth - appwidth, 0));
+					comp.setPositionGlobal(new Vector3D(appwidth, 0));
 				}
 				return false;
 			}
