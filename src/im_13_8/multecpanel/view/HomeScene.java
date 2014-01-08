@@ -145,7 +145,7 @@ public class HomeScene extends AbstractScene implements IBounceBackObserver{
 
 	@Override
 	public void shutDown() {
-		
+		this.destroy();
 	}
 
 	@Override
