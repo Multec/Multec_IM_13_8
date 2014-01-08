@@ -51,6 +51,11 @@ public class ListView extends CustomScene {
 				int position = listitemsliderview.getListItems().indexOf(item);
 				slider.setPosition(position);
 			}
+
+			@Override
+			public void listItemDoubleClicked(ListItem item) {
+				System.out.println(item.getTekstlinks());
+			}
 		});
 		
 		this.getCanvas().addChild(listitemsliderview);

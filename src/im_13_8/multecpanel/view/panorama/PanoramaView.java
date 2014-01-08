@@ -45,6 +45,12 @@ public class PanoramaView extends CustomScene {
 			public void listItemSelected(ListItemSliderView view, ListItem item) {
 				loadImage(item.getSoort(), application);
 			}
+
+			@Override
+			public void listItemDoubleClicked(ListItem item) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 		this.getCanvas().addChild(listitemsliderview);
 		

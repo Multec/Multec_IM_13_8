@@ -12,14 +12,13 @@ import org.mt4j.input.inputProcessors.IGestureEventListener;
 import org.mt4j.input.inputProcessors.MTGestureEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragProcessor;
+import org.mt4j.input.inputProcessors.componentProcessors.tapProcessor.TapProcessor;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.animation.Animation;
 import org.mt4j.util.animation.AnimationEvent;
 import org.mt4j.util.animation.IAnimationListener;
 import org.mt4j.util.animation.MultiPurposeInterpolator;
 import org.mt4j.util.math.Vector3D;
-
-import processing.core.PApplet;
 
 public class ListItemSliderView extends MTComponent {
 	private ArrayList<IListItemSliderObserver> observers;
@@ -28,7 +27,6 @@ public class ListItemSliderView extends MTComponent {
 	private float width;
 	private float height;
 	private MTRectangle touchRect;
-	private float sizeSmallTiles = 0.8f;
 	private float distancebetween;
 	private Animation gotoAnimation;
 	
@@ -80,10 +78,10 @@ public class ListItemSliderView extends MTComponent {
 					break;
 				case MTGestureEvent.GESTURE_ENDED:
 					float travelXfurther = 0;
-					if(travelledX < 0) {
+					if(travelledX < -10) {
 						travelXfurther = distancebetween / 2;
 					}
-					else if(travelledX > 0){
+					else if(travelledX > 10){
 						travelXfurther = distancebetween / -2;
 					}
 					Animation animation = new Animation("gotoclosest", new MultiPurposeInterpolator(0, travelXfurther, 500, 0, 1, 1), this);
@@ -123,6 +121,16 @@ public class ListItemSliderView extends MTComponent {
 				@Override
 				public boolean processGestureEvent(MTGestureEvent ge) {
 					touchRect.processGestureEvent(ge);
+					return false;
+				}
+			});
+			
+			final ListItem listitem = liv.getListItem();
+			liv.addGestureListener(TapProcessor.class, new IGestureEventListener() {
+				
+				@Override
+				public boolean processGestureEvent(MTGestureEvent ge) {
+					notifyListItemDoubleClicked(listitem);
 					return false;
 				}
 			});
@@ -187,6 +195,12 @@ public class ListItemSliderView extends MTComponent {
 	public void notifyListItemSelected(ListItem item) {
 		for (IListItemSliderObserver observer : observers) {
 			observer.listItemSelected(this, item);
+		}
+	}
+	
+	public void notifyListItemDoubleClicked(ListItem item) {
+		for (IListItemSliderObserver observer : observers) {
+			observer.listItemDoubleClicked(item);
 		}
 	}
 

@@ -13,6 +13,8 @@ import org.mt4j.components.visibleComponents.widgets.MTTextArea;
 import org.mt4j.input.inputProcessors.IGestureEventListener;
 import org.mt4j.input.inputProcessors.MTGestureEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragProcessor;
+import org.mt4j.input.inputProcessors.componentProcessors.tapProcessor.TapEvent;
+import org.mt4j.input.inputProcessors.componentProcessors.tapProcessor.TapProcessor;
 import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Vector3D;
 
@@ -94,6 +96,22 @@ public class ListItemView extends MTComponent {
 		
 		this.isBig = true;
 		setSmall();
+		
+		final ListItemView view = this;
+		for (MTComponent comp : this.getChildren()) {
+			comp.registerInputProcessor(new TapProcessor(app, 25, true, 350));
+			comp.addGestureListener(TapProcessor.class, new IGestureEventListener() {
+				
+				@Override
+				public boolean processGestureEvent(MTGestureEvent ge) {
+					TapEvent te = (TapEvent)ge;
+					if (te.isDoubleTap()){
+						view.processGestureEvent(ge);
+					}
+					return false;
+				}
+			});
+		}
 	}
 	
 	public void translateX(float x) {
