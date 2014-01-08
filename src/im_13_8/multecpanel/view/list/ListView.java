@@ -24,7 +24,7 @@ public class ListView extends CustomScene {
 	private ListItemSliderView listitemsliderview;
 	private SliderView slider;
 	
-	public ListView(Application app, String name, ParentEntiteit parent) {
+	public ListView(final Application app, String name, final ParentEntiteit parent) {
 		super(app, name, parent);
 		float imagesY = 313;
 		float sliderY = 975;
@@ -55,6 +55,10 @@ public class ListView extends CustomScene {
 			@Override
 			public void listItemDoubleClicked(ListItem item) {
 				System.out.println(item.getTekstlinks());
+				ParentEntiteit newParent = new ParentEntiteit("list","vakken");
+				newParent.setParent(parent);
+				transition.setDirection("up");
+				goToScene("vak", item.getTekstlinks(), newParent);
 			}
 		});
 		

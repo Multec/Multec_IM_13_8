@@ -4,6 +4,7 @@ import im_13_8.multecpanel.entiteiten.Richting;
 import im_13_8.multecpanel.entiteiten.ParentEntiteit;
 import im_13_8.multecpanel.view.HomeScene;
 import im_13_8.multecpanel.view.detail.DetailView;
+import im_13_8.multecpanel.view.detail.VakView;
 import im_13_8.multecpanel.view.list.ListView;
 import im_13_8.multecpanel.view.menu.Menu;
 import im_13_8.multecpanel.view.panorama.PanoramaView;
@@ -96,6 +97,9 @@ public class Application extends MTApplication {
 			this.changeScene(newScene);
 		} else if (soortScene == "detail") {
 			newScene = new DetailView(this, sceneID, parent);
+			this.changeScene(newScene);
+		} else if (soortScene == "vak") {
+			newScene = new VakView(this, sceneID, parent);
 			this.changeScene(newScene);
 		} else if (soortScene == "list") {
 			newScene = new ListView(this, sceneID, parent);

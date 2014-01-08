@@ -18,7 +18,7 @@ public class VakModel {
 		ResultSet queryResult = null;
 		DatabaseQuery dbQuery = null;
 		try {
-			dbQuery = new DatabaseQuery("SELECT * FROM vak ORDER BY pijler;");
+			dbQuery = new DatabaseQuery("SELECT * FROM vak ORDER BY pijler, vaknaam;");
 			queryResult = dbQuery.getResult();
 		} catch (SQLException e) {
 			System.out.println("There was an error while executing the query. Error:" + e);
@@ -60,6 +60,30 @@ public class VakModel {
 		dbQuery.close();
 		
 		return clusters;
+	}
+	
+	public DetailInfo getDetailInfo(String name) {
+		ResultSet queryResult = null;
+		DatabaseQuery dbQuery = null;
+		try {
+			dbQuery = new DatabaseQuery("SELECT * FROM vak WHERE vaknaam = ? limit 1;", name);
+			queryResult = dbQuery.getResult();
+		} catch (SQLException e) {
+			System.out.println("There was an error while executing the query. Error:" + e);
+		}
+
+		DetailInfo detail = null;
+		try {
+			if(queryResult.next()) {
+				detail = new DetailInfo(queryResult.getString("vaknaam"), queryResult.getString("vakbeschrijving"), queryResult.getString("path_afbeelding"));
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("There was an error while getting the row from the query result. Error:" + e);
+		}
+		dbQuery.close();
+		
+		return detail;
 	}
 
 }
