@@ -19,20 +19,3 @@ public class DatabaseConnection {
 		this.dbConnection.close();
 	}
 }
-
-
-/* 
- 			import com.mysql.jdbc.PreparedStatement;
- 			// Creating query
-			java.sql.PreparedStatement statement = con.prepareStatement("select * from vak");
-		
-			// Create variable to execute query
-			ResultSet result = statement.executeQuery();
-		
-			DetailInfo detail;
-			while (result.next()) {
-				detail = new DetailInfo(result.getString(2), result.getString(3), result.getString(4));
-			}
-			
-			return detail;
-*/

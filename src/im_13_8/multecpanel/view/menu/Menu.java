@@ -88,7 +88,7 @@ public class Menu extends CustomScene implements IBounceBackObserver {
 	protected void gotoScene(Object args, Application app) {
 		MenuItem menuitem = (MenuItem)args;
 		
-		String menuSoort = menuitem.getmenuSoort(); //Speeding up the following if...else
+		String menuSoort = menuitem.getmenuSoort();
 		String menuID = menuitem.getMenuID();
 		
 		ParentEntiteit parent = new ParentEntiteit("menu", this.getName());
@@ -100,7 +100,7 @@ public class Menu extends CustomScene implements IBounceBackObserver {
 
 	@Override
 	public boolean hoveredOn(Object args, float travelled, MTComponent target) {
-		if (travelled < -100) {
+		if (travelled < -250) {
 			this.gotoScene(args, this.app);
 			return true;
 		}
