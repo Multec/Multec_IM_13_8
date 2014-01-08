@@ -95,7 +95,8 @@ public class Menu extends CustomScene implements IBounceBackObserver {
 		parent.setParent(this.parent);
 		
 		transition.setDirection("up");
-		app.goToScene(menuSoort, menuID, parent);
+		
+		goToScene(menuSoort, menuID, parent);
 	}
 
 	@Override
