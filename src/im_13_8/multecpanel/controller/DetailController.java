@@ -11,10 +11,10 @@ public class DetailController {
 	private ResultSet queryResult;
 	private DatabaseQuery dbQuery;
 	
-	public DetailInfo getDetailInfo() {
+	public DetailInfo getDetailInfo(String name) {
 		
 		try {
-			this.dbQuery = new DatabaseQuery("SELECT * FROM vak");
+			this.dbQuery = new DatabaseQuery("SELECT * FROM vak WHERE vaknaam = " + name);
 			queryResult = this.dbQuery.getResult();
 		} catch (SQLException e) {
 			System.out.println("There was an error while executing the query. Error:" + e);

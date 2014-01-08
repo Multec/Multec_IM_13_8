@@ -23,9 +23,8 @@ public class DetailView extends CustomScene {
 	public DetailView(Application app, String name, ParentEntiteit parent){
 		super(app, name, parent);
 		
-		
 		controller = new DetailController();
-		detailInfo = controller.getDetailInfo();
+		detailInfo = controller.getDetailInfo(name);
 			
 		this.getCanvas().addChild(new Background(detailInfo.getVakImgPath(), app));
 			 
