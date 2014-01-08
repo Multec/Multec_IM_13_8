@@ -10,20 +10,25 @@ public class CustomScene extends AbstractScene implements IBackButtonObserver {
 	protected ParentEntiteit parent;
 	protected Application app;
 	protected CustomTransition transition;
+	private boolean goingNextScene;
 	
 	public CustomScene(Application app, String name, ParentEntiteit parent) {
 		super(app, name);
 		this.parent = parent;
 		this.app = app;
 		
+		this.goingNextScene = false;
 		transition = new CustomTransition(app);
 		this.setTransition(transition);
 	}
 
 	@Override
 	public void goBack() {
-		transition.setDirection("down");
-		app.goToScene(parent.getParentSoort(), parent.getParentID(), parent.getParent());
+		if(!goingNextScene) {
+			transition.setDirection("down");
+			app.goToScene(parent.getParentSoort(), parent.getParentID(), parent.getParent());
+			this.goingNextScene = true;
+		}
 	}
 
 	@Override
