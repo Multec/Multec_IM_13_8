@@ -7,6 +7,7 @@ import im_13_8.multecpanel.entiteiten.ListItem;
 import im_13_8.multecpanel.entiteiten.ParentEntiteit;
 import im_13_8.multecpanel.view.util.BackButton;
 import im_13_8.multecpanel.view.util.Background;
+import im_13_8.multecpanel.view.util.CustomScene;
 import im_13_8.multecpanel.view.util.CustomTransition;
 import im_13_8.multecpanel.view.util.IBackButtonObserver;
 
@@ -17,24 +18,19 @@ import org.mt4j.components.visibleComponents.widgets.MTTextArea;
 import org.mt4j.sceneManagement.AbstractScene;
 import org.mt4j.util.math.Vector3D;
 
-public class ListView extends AbstractScene implements IBackButtonObserver {
+public class ListView extends CustomScene {
 	private ListItemController controller;
 	private ArrayList<Cluster> clusters;
 	private ListItemSliderView listitemsliderview;
 	private SliderView slider;
-	private ParentEntiteit parent;
-	private Application app;
-	private CustomTransition transition;
 	
 	public ListView(Application app, String name, ParentEntiteit parent) {
-		super(app, name);
-		this.app = app;
+		super(app, name, parent);
 		float imagesY = 313;
 		float sliderY = 975;
 		controller = new ListItemController();
 		ArrayList<ListItem> listitems = controller.getListitems();
 		clusters = controller.getClusters();
-		this.parent = parent;
 		
 		this.getCanvas().addChild(new Background("images/background/background_erasmuslogo.png", app));
 		
@@ -71,24 +67,5 @@ public class ListView extends AbstractScene implements IBackButtonObserver {
 		
 		BackButton backButton = new BackButton(app, this);
 		this.getCanvas().addChild(backButton);
-		transition = new CustomTransition(app);
-		this.setTransition(transition);
 	}
-
-	@Override
-	public void init() {
-		
-	}
-
-	@Override
-	public void shutDown() {
-		
-	}
-
-	@Override
-	public void goBack() {
-		transition.setDirection("down");
-		app.goToScene(parent.getParentSoort(), parent.getParentID(), parent.getParent());
-	}
-
 }

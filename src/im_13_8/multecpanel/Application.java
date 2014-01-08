@@ -6,6 +6,7 @@ import im_13_8.multecpanel.view.HomeScene;
 import im_13_8.multecpanel.view.detail.DetailView;
 import im_13_8.multecpanel.view.list.ListView;
 import im_13_8.multecpanel.view.menu.Menu;
+import im_13_8.multecpanel.view.panorama.PanoramaView;
 
 import org.mt4j.MTApplication;
 import org.mt4j.components.visibleComponents.font.FontManager;
@@ -87,24 +88,29 @@ public class Application extends MTApplication {
 	public void goToScene(String soortScene, String sceneID, ParentEntiteit parent) {
 		System.out.println(this.getScenes().length);
 		System.out.println(Runtime.getRuntime().totalMemory() + "/" + Runtime.getRuntime().maxMemory());
-		Iscene scene = this.getCurrentScene();
 		
+		Iscene newScene = null;
 		if (soortScene == "menu") { 
-			this.changeScene(new Menu(this, sceneID, parent));
+			newScene = new Menu(this, sceneID, parent);
+			this.changeScene(newScene);
 		} else if (soortScene == "detail") {
-			this.changeScene(new DetailView(this, sceneID, parent));
+			newScene = new DetailView(this, sceneID, parent);
+			this.changeScene(newScene);
 		} else if (soortScene == "list") {
-			this.changeScene(new ListView(this, sceneID, parent));
+			newScene = new ListView(this, sceneID, parent);
+			this.changeScene(newScene);
 		} else if (soortScene == "home") {
-			this.changeScene(new HomeScene(this, sceneID));
+			newScene = new HomeScene(this, sceneID);
+			this.changeScene(newScene);
 		} else {
-			//this.changeScene(new Panorama(this, sceneID));
+			newScene = new PanoramaView(this, sceneID, parent);
+			this.changeScene(newScene);
 		}
 		
-		/*for (Iscene scene : this.getScenes()) {
-			if(scene != this.getCurrentScene()) {
-				this.removeScene(scene);
+		for (Iscene scene : this.getScenes()) {
+			if(scene != newScene) {
+				scene.destroy();
 			}
-		}*/
+		}
 	}
 }

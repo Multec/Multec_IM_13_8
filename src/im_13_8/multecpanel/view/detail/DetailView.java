@@ -6,6 +6,7 @@ import im_13_8.multecpanel.entiteiten.DetailInfo;
 import im_13_8.multecpanel.entiteiten.ParentEntiteit;
 import im_13_8.multecpanel.view.util.BackButton;
 import im_13_8.multecpanel.view.util.Background;
+import im_13_8.multecpanel.view.util.CustomScene;
 import im_13_8.multecpanel.view.util.CustomTransition;
 import im_13_8.multecpanel.view.util.IBackButtonObserver;
 
@@ -14,18 +15,13 @@ import org.mt4j.components.visibleComponents.widgets.MTTextArea;
 import org.mt4j.sceneManagement.AbstractScene;
 import org.mt4j.util.math.Vector3D;
 
-public class DetailView extends AbstractScene implements IBackButtonObserver {
+public class DetailView extends CustomScene {
 	
 	private DetailController controller;
 	private DetailInfo detailInfo;
-	private ParentEntiteit parent;
-	private Application app;
-	private CustomTransition transition;
 	
 	public DetailView(Application app, String name, ParentEntiteit parent){
-		super(app, name);
-		this.parent = parent;
-		this.app = app;
+		super(app, name, parent);
 		
 		
 		controller = new DetailController();
@@ -57,22 +53,5 @@ public class DetailView extends AbstractScene implements IBackButtonObserver {
 		
 		BackButton backButton = new BackButton(app, this);
 		this.getCanvas().addChild(backButton);
-		transition = new CustomTransition(app);
-		this.setTransition(transition);
 	}
-		
-
-	public void init() {
-	}
-
-	public void shutDown() {
-	}
-
-
-	@Override
-	public void goBack() {
-		transition.setDirection("down");
-		app.goToScene(parent.getParentSoort(), parent.getParentID(), parent.getParent());
-	}
-	
 }

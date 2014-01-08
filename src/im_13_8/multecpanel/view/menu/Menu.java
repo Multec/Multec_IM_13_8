@@ -8,6 +8,7 @@ import im_13_8.multecpanel.view.detail.DetailView;
 import im_13_8.multecpanel.view.list.ListView;
 import im_13_8.multecpanel.view.util.BackButton;
 import im_13_8.multecpanel.view.util.BounceBack;
+import im_13_8.multecpanel.view.util.CustomScene;
 import im_13_8.multecpanel.view.util.CustomTransition;
 import im_13_8.multecpanel.view.util.IBackButtonObserver;
 import im_13_8.multecpanel.view.util.IBounceBackObserver;
@@ -27,23 +28,18 @@ import org.mt4j.util.animation.IAnimationListener;
 import org.mt4j.util.animation.MultiPurposeInterpolator;
 import org.mt4j.util.math.Vector3D;
 
-public class Menu extends AbstractScene implements IBounceBackObserver, IBackButtonObserver {
+public class Menu extends CustomScene implements IBounceBackObserver {
 	private ArrayList<MenuItem> menuItems;
 	private int listCount;
 	private int menuWidth;
 	private int menuHeight;
-	private Application app;
-	private ParentEntiteit parent;
-	private CustomTransition transition;
 
 	public Menu(Application app, String name, ParentEntiteit parent) {
-		super(app, name);
-		this.app = app;
+		super(app, name, parent);
 		this.menuItems = new MenuController(name).getMenuItems();
 		this.listCount = this.menuItems.size();
 		this.menuWidth = app.width / this.listCount;
 		this.menuHeight = app.height;
-		this.parent = parent;
 		
 		int indexInArray = 0;
 		
@@ -82,21 +78,6 @@ public class Menu extends AbstractScene implements IBounceBackObserver, IBackBut
 		
 		BackButton backButton = new BackButton(app, this);
 		this.getCanvas().addChild(backButton);
-		
-		transition = new CustomTransition(app);
-		this.setTransition(transition);
-	}
-
-	@Override
-	public void init() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void shutDown() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -124,11 +105,5 @@ public class Menu extends AbstractScene implements IBounceBackObserver, IBackBut
 			return true;
 		}
 		return false;
-	}
-
-	@Override
-	public void goBack() {
-		transition.setDirection("down");
-		app.goToScene(parent.getParentSoort(), parent.getParentID(), parent.getParent());
 	}
 }
