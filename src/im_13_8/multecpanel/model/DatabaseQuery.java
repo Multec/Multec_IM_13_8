@@ -23,6 +23,20 @@ public class DatabaseQuery {
 		this.result = statement.executeQuery();
 	}
 	
+	public DatabaseQuery(String query) throws SQLException {
+		try {
+			this.dbConnection = Database.getConnection();
+		} catch (Exception e) {
+			System.out.println("There was an error while connecting to the database. Error: " + e);
+		}
+		
+		// Creating query
+		statement = this.dbConnection.prepareStatement(query);
+						
+		// Create variable to execute query
+		this.result = statement.executeQuery();
+	}
+	
 	public ResultSet getResult() throws SQLException {
 		return result;
 	}
