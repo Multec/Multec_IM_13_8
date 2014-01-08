@@ -7,6 +7,7 @@ import im_13_8.multecpanel.view.detail.DetailView;
 import im_13_8.multecpanel.view.detail.VakView;
 import im_13_8.multecpanel.view.list.ListView;
 import im_13_8.multecpanel.view.menu.Menu;
+import im_13_8.multecpanel.view.movie.MovieScene;
 import im_13_8.multecpanel.view.panorama.PanoramaView;
 
 import org.mt4j.MTApplication;
@@ -107,7 +108,11 @@ public class Application extends MTApplication {
 		} else if (soortScene == "home") {
 			newScene = new HomeScene(this, sceneID);
 			this.changeScene(newScene);
-		} else {
+		} else if(soortScene == "movie") {
+			newScene = new MovieScene(this, sceneID, parent);
+			this.changeScene(newScene);
+		} else
+		{
 			newScene = new PanoramaView(this, sceneID, parent);
 			this.changeScene(newScene);
 		}

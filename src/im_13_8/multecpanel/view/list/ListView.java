@@ -29,7 +29,7 @@ public class ListView extends CustomScene {
 		float imagesY = 313;
 		float sliderY = 975;
 		controller = new ListItemController();
-		ArrayList<ListItem> listitems = controller.getListitems();
+		ArrayList<ListItem> listitems = controller.getListitems(name);
 		clusters = controller.getClusters();
 		
 		this.getCanvas().addChild(new Background("images/background/background_erasmuslogo.png", app));
@@ -55,10 +55,10 @@ public class ListView extends CustomScene {
 			@Override
 			public void listItemDoubleClicked(ListItem item) {
 				System.out.println(item.getTekstlinks());
-				ParentEntiteit newParent = new ParentEntiteit("list","vakken");
+				ParentEntiteit newParent = new ParentEntiteit("list", getName());
 				newParent.setParent(parent);
 				transition.setDirection("up");
-				goToScene("vak", item.getTekstlinks(), newParent);
+				goToScene(item.getSoort(), item.getTekstlinks(), newParent);
 			}
 		});
 		

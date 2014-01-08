@@ -14,7 +14,7 @@ public class VakModel {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ArrayList<ListItem> getDetailInfo() {
+	public ArrayList<ListItem> getVakken() {
 		ResultSet queryResult = null;
 		DatabaseQuery dbQuery = null;
 		try {
@@ -27,7 +27,7 @@ public class VakModel {
 		ArrayList<ListItem> vakken = new ArrayList<ListItem>();
 		try {
 			while(queryResult.next()) {
-				vakken.add(new ListItem(queryResult.getString("path_afbeelding"), queryResult.getString("vaknaam"), "", "", queryResult.getString("pijler")));
+				vakken.add(new ListItem(queryResult.getString("path_afbeelding"), queryResult.getString("vaknaam"), "", "vak", queryResult.getString("pijler")));
 			}
 			
 		} catch (SQLException e) {

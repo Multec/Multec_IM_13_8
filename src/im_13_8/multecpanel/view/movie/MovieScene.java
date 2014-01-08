@@ -5,6 +5,7 @@ import org.mt4j.util.math.Vertex;
 
 import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.entiteiten.ParentEntiteit;
+import im_13_8.multecpanel.view.util.BackButton;
 import im_13_8.multecpanel.view.util.CustomScene;
 
 public class MovieScene extends CustomScene {
@@ -13,6 +14,8 @@ public class MovieScene extends CustomScene {
 		super(app, name, parent);
 		MTMovieClip clip = new MTMovieClip("movies/Dirly.mp4", new Vertex(0, 0), app);
 		this.getCanvas().addChild(clip);
+		
+		this.getCanvas().addChild(new BackButton(app, this));
 	}
 
 }

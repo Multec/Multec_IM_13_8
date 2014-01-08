@@ -17,7 +17,7 @@ public class VakController {
 	}
 	
 	public ArrayList<ListItem> getListitems() {
-		return model.getDetailInfo();
+		return model.getVakken();
 	}
 	
 	public DetailInfo getVakItem() {
