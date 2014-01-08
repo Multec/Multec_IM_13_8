@@ -45,6 +45,10 @@ public class ListItemSliderView extends MTComponent {
 	}
 	
 	public ListItemSliderView(float x, float y, float width, float height, ArrayList<ListItem> listitems, Application app) {
+		this(x, y, width, height, listitems, app, app.width / 2.5f, (width / 2) - (width - (height * 0.8f) / 2));
+	}
+	
+	public ListItemSliderView(float x, float y, float width, float height, ArrayList<ListItem> listitems, Application app, float tilewidth, float dbetween) {
 		super(app);
 		this.observers = new ArrayList<IListItemSliderObserver>();
 		this.listitems = listitems;
@@ -52,7 +56,7 @@ public class ListItemSliderView extends MTComponent {
 		this.width = width;
 		this.height = height;
 		this.translate(new Vector3D(x, y));
-		this.distancebetween = (width / 2) - (width - (height * sizeSmallTiles) / 2);
+		this.distancebetween = dbetween;
 		
 		touchRect = new MTRectangle(0, 0, width, height, app);
 		touchRect.setFillColor(new MTColor(0, 0, 0, 0));
@@ -113,7 +117,7 @@ public class ListItemSliderView extends MTComponent {
 		for (int i = 0; i < listitems.size(); i++) {
 			float position = (width / 2) - distancebetween * i;
 			
-			ListItemView liv = new ListItemView(position , height / 2, app.width / 2.5f, height, listitems.get(i), app);
+			ListItemView liv = new ListItemView(position , height / 2, tilewidth, height, listitems.get(i), app);
 			liv.addGestureListener(DragProcessor.class, new IGestureEventListener() {
 				
 				@Override

@@ -33,7 +33,7 @@ public class CustomScene extends AbstractScene implements IBackButtonObserver {
 
 	@Override
 	public void shutDown() {
-
+		this.destroy();
 	}
 
 }

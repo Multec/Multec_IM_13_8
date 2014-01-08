@@ -179,7 +179,6 @@ public class CustomTransition extends AbstractTransition {
 		this.nextSceneWindow.destroy();
 		lastSceneRectangle.destroy();
 		nextSceneRectangle.destroy();
-		
 	}
 
 	public String getDirection() {

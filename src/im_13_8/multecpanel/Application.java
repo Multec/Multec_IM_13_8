@@ -89,6 +89,7 @@ public class Application extends MTApplication {
 		System.out.println(this.getScenes().length);
 		System.out.println(Runtime.getRuntime().totalMemory() + "/" + Runtime.getRuntime().maxMemory());
 		
+		
 		Iscene newScene = null;
 		if (soortScene == "menu") { 
 			newScene = new Menu(this, sceneID, parent);
@@ -105,12 +106,6 @@ public class Application extends MTApplication {
 		} else {
 			newScene = new PanoramaView(this, sceneID, parent);
 			this.changeScene(newScene);
-		}
-		
-		for (Iscene scene : this.getScenes()) {
-			if(scene != newScene) {
-				scene.destroy();
-			}
 		}
 	}
 }
