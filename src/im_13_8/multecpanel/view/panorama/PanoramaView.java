@@ -24,9 +24,14 @@ import im_13_8.multecpanel.view.util.CustomScene;
 public class PanoramaView extends CustomScene {
 	private PanoramaController controller;
 	private MTRectangle panorama;
+	private MTRectangle panorama2;
+	private MTRectangle comp;
 	
 	public PanoramaView(Application app, String name, ParentEntiteit parent) {
 		super(app, name, parent);
+		
+		comp = new MTRectangle(0, 0, 0, 0, app);
+		this.getCanvas().addChild(comp);
 		
 		controller = new PanoramaController();
 		ArrayList<ListItem> items = controller.getListitems();
@@ -43,13 +48,12 @@ public class PanoramaView extends CustomScene {
 			
 			@Override
 			public void listItemSelected(ListItemSliderView view, ListItem item) {
-				loadImage(item.getSoort(), application);
+				
 			}
 
 			@Override
 			public void listItemDoubleClicked(ListItem item) {
-				// TODO Auto-generated method stub
-				
+				loadImage(item.getSoort(), application);
 			}
 		});
 		this.getCanvas().addChild(listitemsliderview);
@@ -57,31 +61,61 @@ public class PanoramaView extends CustomScene {
 		BackButton backButton = new BackButton(app, this);
 		this.getCanvas().addChild(backButton);
 		
+		if(items.size() > 0) {
+			loadImage(items.get(0).getSoort(), app);
+		}
 	}
 	
 	private void loadImage(String path, Application app) {
 		PImage image = app.loadImage(path);
 		
+		if(this.panorama != null) {
+			panorama.destroy();
+		}
+		if(this.panorama2 != null) {
+			panorama2.destroy();
+		}
+		this.panorama = createPanorama(app, image);
+		this.panorama2 = createPanorama(app, image);
 		
-		panorama = new MTRectangle(0, 0,  image.width, image.height, app);
-		panorama.removeAllGestureEventListeners();
-		panorama.setAnchor(PositionAnchor.CENTER);
-		panorama.setNoStroke(true);
-		panorama.setPositionRelativeToParent(new Vector3D(app.width / 2, app.height / 2, -1));
-		panorama.setTexture(image);
-		panorama.setWidthXYRelativeToParent(image.width);
-		panorama.setHeightXYRelativeToParent(image.height);
-		panorama.addGestureListener(DragProcessor.class, new IGestureEventListener() {
+		panorama.setPositionRelativeToParent(new Vector3D(0, 0, -1));
+		panorama2.setPositionRelativeToParent(new Vector3D(-image.width, 0, -1));
+		System.out.println(Runtime.getRuntime().totalMemory() + "/" + Runtime.getRuntime().maxMemory());
+	}
+
+	private MTRectangle createPanorama(Application app, PImage image) {
+
+		MTRectangle pano = new MTRectangle(0, 0,  image.width, image.height, app);
+		pano.removeAllGestureEventListeners();
+		pano.setAnchor(PositionAnchor.UPPER_LEFT);
+		pano.setNoStroke(true);
+		pano.setTexture(image);
+		pano.setWidthXYRelativeToParent(image.width);
+		pano.setHeightXYRelativeToParent(image.height);
+		final float imagewidth = image.width;
+		final float appwidth = app.width;
+		
+		pano.addGestureListener(DragProcessor.class, new IGestureEventListener() {
 			
 			@Override
 			public boolean processGestureEvent(MTGestureEvent ge) {
 				DragEvent event = (DragEvent)ge;
 				event.getTranslationVect().setY(0);
-				panorama.translate(event.getTranslationVect());
+				comp.translate(event.getTranslationVect());
+				float currentx = comp.getPosition(TransformSpace.RELATIVE_TO_PARENT).x;
+				System.out.println(currentx);
+				if(currentx > imagewidth - appwidth) {
+					comp.setPositionGlobal(new Vector3D(appwidth - imagewidth, 0));
+				}
+				
+				if(currentx < appwidth - imagewidth) {
+					comp.setPositionGlobal(new Vector3D(imagewidth - appwidth, 0));
+				}
 				return false;
 			}
 		});
-		this.getCanvas().addChild(panorama);
+		comp.addChild(pano);
+		return pano;
 	}
 
 }
