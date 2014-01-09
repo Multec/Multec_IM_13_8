@@ -4,9 +4,12 @@ import im_13_8.multecpanel.Application;
 
 import org.mt4j.components.MTComponent;
 import org.mt4j.components.visibleComponents.shapes.MTEllipse;
+import org.mt4j.components.visibleComponents.shapes.MTRectangle;
+import org.mt4j.components.visibleComponents.shapes.MTRectangle.PositionAnchor;
 import org.mt4j.input.inputProcessors.IGestureEventListener;
 import org.mt4j.input.inputProcessors.MTGestureEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragProcessor;
+import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Vector3D;
 
 import im_13_8.multecpanel.view.util.ArrowDown;
@@ -17,7 +20,7 @@ public class BackButton extends MTEllipse {
 	public BackButton(Application app, IBackButtonObserver observer) {
 		super(app, new Vector3D(app.width / 2, -20), 75, 75);
 		this.obs = observer;
-		Arrow arrow = new ArrowDown(app);
+		final Arrow arrow = new ArrowDown(app);
 		
 		setFillColor(app.getTransparantBlack());
 		setNoStroke(true);
@@ -36,6 +39,24 @@ public class BackButton extends MTEllipse {
 			}
 		});
 		
+		MTRectangle touchRect = new MTRectangle(0, 0, 300, 150, app);
+		touchRect.setFillColor(new MTColor(0, 0, 0, 0));
+		touchRect.setStrokeColor(new MTColor(0, 0, 0, 0));
+		touchRect.setAnchor(PositionAnchor.UPPER_LEFT);
+		touchRect.setPositionRelativeToParent(new Vector3D(app.width / 2 - 150, 0));
+		touchRect.removeAllGestureEventListeners();
+		touchRect.addGestureListener(DragProcessor.class, new IGestureEventListener() {
+			
+			@Override
+			public boolean processGestureEvent(MTGestureEvent ge) {
+				ge.setTargetComponent(comp);
+				comp.processGestureEvent(ge);
+				return false;
+			}
+		});
+		
+		this.addChild(touchRect);
+		
 		this.removeAllGestureEventListeners();
 		this.addGestureListener(DragProcessor.class, new BounceBack(null, new IBounceBackObserver() {
 			
@@ -46,6 +67,7 @@ public class BackButton extends MTEllipse {
 			
 			@Override
 			public boolean hoveredOn(Object args, float travelled, MTComponent target) {
+				
 				if(travelled > 50) {
 					obs.goBack();
 					return true;

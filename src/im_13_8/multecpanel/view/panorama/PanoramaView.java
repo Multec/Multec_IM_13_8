@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mt4j.components.TransformSpace;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle.PositionAnchor;
+import org.mt4j.input.gestureAction.InertiaDragAction;
 import org.mt4j.input.inputProcessors.IGestureEventListener;
 import org.mt4j.input.inputProcessors.MTGestureEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragEvent;
@@ -94,13 +95,13 @@ public class PanoramaView extends CustomScene {
 		pano.setHeightXYRelativeToParent(image.height);
 		final float imagewidth = image.width;
 		final float appwidth = app.width;
-		
 		pano.addGestureListener(DragProcessor.class, new IGestureEventListener() {
 			
 			@Override
 			public boolean processGestureEvent(MTGestureEvent ge) {
 				DragEvent event = (DragEvent)ge;
 				event.getTranslationVect().setY(0);
+				event.getTranslationVect().setX(event.getTranslationVect().x * 1.5f);
 				comp.translate(event.getTranslationVect());
 				float currentx = comp.getPosition(TransformSpace.RELATIVE_TO_PARENT).x;
 				if(currentx > imagewidth) {
