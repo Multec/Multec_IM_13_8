@@ -30,7 +30,7 @@ public class ListView extends CustomScene {
 		float sliderY = 975;
 		controller = new ListItemController();
 		ArrayList<ListItem> listitems = controller.getListitems(name);
-		clusters = controller.getClusters();
+		clusters = controller.getClusters(name);
 		
 		this.getCanvas().addChild(new Background("images/background/background_erasmuslogo.png", app));
 		

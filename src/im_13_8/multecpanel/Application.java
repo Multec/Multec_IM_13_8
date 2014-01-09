@@ -129,26 +129,19 @@ public class Application extends MTApplication {
 		
 		if (soortScene == "menu") { 
 			this.changeScene(new Menu(this, sceneID, parent));
-		} else if (soortScene == "detail") 
-		{
+		} else if (soortScene == "detail") {
 			this.changeScene(new DetailView(this, sceneID, parent));
-		} else if (soortScene == "vak") 
-		{
+		} else if (soortScene == "vak") {
 			this.changeScene(new VakView(this, sceneID, parent));
-		} else if (soortScene == "list") 
-		{
+		} else if (soortScene == "list") {
 			this.changeScene(new ListView(this, sceneID, parent));
-		} else if (soortScene == "home") 
-		{
+		} else if (soortScene == "home") {
 			this.changeScene(new HomeScene(this, sceneID));
 		} else if(soortScene == "image") {
 			this.changeScene(new ImageScene(this, sceneID, parent));
-		}
-		else if(soortScene == "movie") 
-		{
+		} else if(soortScene == "movie") {
 			this.changeScene(new MovieScene(this, sceneID, parent));
-		} else if(soortScene == "pano")
-		{
+		} else if(soortScene == "pano"){
 			this.changeScene(new PanoramaView(this, sceneID, parent));
 		}
 	}

@@ -2,6 +2,7 @@ package im_13_8.multecpanel.model;
 
 import im_13_8.multecpanel.entiteiten.Cluster;
 import im_13_8.multecpanel.entiteiten.DetailInfo;
+import im_13_8.multecpanel.entiteiten.DocentenInfo;
 import im_13_8.multecpanel.entiteiten.ListItem;
 
 import java.sql.ResultSet;
@@ -27,7 +28,7 @@ public class DocentenModel {
 		ArrayList<ListItem> docenten = new ArrayList<ListItem>();
 		try {
 			while(queryResult.next()) {
-				docenten.add(new ListItem(queryResult.getString("path_thumb_docent"), queryResult.getString("docentennaam"), "", "docent", ""));
+				docenten.add(new ListItem(queryResult.getString("path_thumb_docent"), queryResult.getString("docentnaam"), "", "movie", ""));
 			}
 			
 		} catch (SQLException e) {
@@ -38,7 +39,7 @@ public class DocentenModel {
 		return docenten;
 	}
 	
-	public DetailInfo getDocentInfo(String docentName) {
+	public DocentenInfo getDocentInfo(String docentName) {
 		ResultSet queryResult = null;
 		DatabaseQuery dbQuery = null;
 		try {
@@ -48,10 +49,10 @@ public class DocentenModel {
 			System.out.println("There was an error while executing the query. Error:" + e);
 		}
 
-		DetailInfo docent = null;
+		DocentenInfo docent = null;
 		try {
 			if(queryResult.next()) {
-				docent = new DetailInfo(queryResult.getString("docentnaam"), "", queryResult.getString("path_film"));
+				docent = new DocentenInfo(queryResult.getString("docentnaam"), "", queryResult.getString("path_film"));
 			}
 			
 		} catch (SQLException e) {

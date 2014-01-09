@@ -22,7 +22,7 @@ public class MenuController {
 			this.menuItems.add(new MenuItem("Traject\nBegeleiding", "images/trajectBegeleidingBlack.jpg", "images/trajectBegeleiding.jpg", "trajectBegeleiding", "detail"));
 		} else if (whichMenu =="studie") {
 			this.menuItems.clear();
-			this.menuItems.add(new MenuItem("Vakken", "images/vakkenBlack.jpg", "images/vakken.jpg", "vakken", "list"));
+			this.menuItems.add(new MenuItem("Vakken", "images/vakkenBlack.jpg", "images/vakken.jpg", "vakken", "movies"));
 			this.menuItems.add(new MenuItem("Specialisaties", "images/specialisatiesBlack.jpg", "images/specialisaties.jpg", "specialisaties", "detail"));
 			this.menuItems.add(new MenuItem("Docenten", "images/docentenBlack.jpg", "images/docenten.jpg", "docenten", "list"));
 		}
