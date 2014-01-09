@@ -20,7 +20,7 @@ public class MovieScene extends CustomScene {
 		controller = new MovieController();
 		Resource resource = controller.getMovie(name);
 		
-		MTMovieClip clip = new MTMovieClip(resource.getPath(), new Vertex(0, 0), app);
+		MTMovieClip clip = new MTMovieClip(resource.getPath(), new Vertex(-15, -35), app);
 		this.getCanvas().addChild(clip);
 		
 		this.getCanvas().addChild(new BackButton(app, this));
