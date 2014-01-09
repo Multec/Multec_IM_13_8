@@ -5,6 +5,7 @@ import im_13_8.multecpanel.entiteiten.ParentEntiteit;
 import im_13_8.multecpanel.view.HomeScene;
 import im_13_8.multecpanel.view.detail.DetailView;
 import im_13_8.multecpanel.view.detail.VakView;
+import im_13_8.multecpanel.view.image.ImageScene;
 import im_13_8.multecpanel.view.list.ListView;
 import im_13_8.multecpanel.view.menu.Menu;
 import im_13_8.multecpanel.view.movie.MovieScene;
@@ -91,30 +92,29 @@ public class Application extends MTApplication {
 		System.out.println(this.getScenes().length);
 		System.out.println(Runtime.getRuntime().totalMemory() + "/" + Runtime.getRuntime().maxMemory());
 		
-		
-		Iscene newScene = null;
 		if (soortScene == "menu") { 
-			newScene = new Menu(this, sceneID, parent);
-			this.changeScene(newScene);
-		} else if (soortScene == "detail") {
-			newScene = new DetailView(this, sceneID, parent);
-			this.changeScene(newScene);
-		} else if (soortScene == "vak") {
-			newScene = new VakView(this, sceneID, parent);
-			this.changeScene(newScene);
-		} else if (soortScene == "list") {
-			newScene = new ListView(this, sceneID, parent);
-			this.changeScene(newScene);
-		} else if (soortScene == "home") {
-			newScene = new HomeScene(this, sceneID);
-			this.changeScene(newScene);
-		} else if(soortScene == "movie") {
-			newScene = new MovieScene(this, sceneID, parent);
-			this.changeScene(newScene);
-		} else
+			this.changeScene(new Menu(this, sceneID, parent));
+		} else if (soortScene == "detail") 
 		{
-			newScene = new PanoramaView(this, sceneID, parent);
-			this.changeScene(newScene);
+			this.changeScene(new DetailView(this, sceneID, parent));
+		} else if (soortScene == "vak") 
+		{
+			this.changeScene(new VakView(this, sceneID, parent));
+		} else if (soortScene == "list") 
+		{
+			this.changeScene(new ListView(this, sceneID, parent));
+		} else if (soortScene == "home") 
+		{
+			this.changeScene(new HomeScene(this, sceneID));
+		} else if(soortScene == "image") {
+			this.changeScene(new ImageScene(this, sceneID, parent));
+		}
+		else if(soortScene == "movie") 
+		{
+			this.changeScene(new MovieScene(this, sceneID, parent));
+		} else if(soortScene == "pano")
+		{
+			this.changeScene(new PanoramaView(this, sceneID, parent));
 		}
 	}
 }

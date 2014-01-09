@@ -1,6 +1,6 @@
 package im_13_8.multecpanel.entiteiten;
 
-public class Movie {
+public class Resource {
 	private String path;
 
 	public String getPath() {
@@ -11,7 +11,7 @@ public class Movie {
 		this.path = path;
 	}
 	
-	public Movie(String path) {
+	public Resource(String path) {
 		this.path = path;
 	}
 }

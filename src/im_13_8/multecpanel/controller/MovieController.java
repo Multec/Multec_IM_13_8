@@ -1,9 +1,9 @@
 package im_13_8.multecpanel.controller;
 
-import im_13_8.multecpanel.entiteiten.Movie;
+import im_13_8.multecpanel.entiteiten.Resource;
 
 public class MovieController {
-	public Movie getMovie(String name) {
-		return new Movie("movies/Dirly.mp4");
+	public Resource getMovie(String name) {
+		return new Resource("movies/Dirly.mp4");
 	}
 }
