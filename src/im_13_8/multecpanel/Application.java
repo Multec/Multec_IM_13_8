@@ -1,5 +1,11 @@
 package im_13_8.multecpanel;
 
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 import im_13_8.multecpanel.entiteiten.Richting;
 import im_13_8.multecpanel.entiteiten.ParentEntiteit;
 import im_13_8.multecpanel.view.HomeScene;
@@ -26,9 +32,38 @@ public class Application extends MTApplication {
 	private MTColor white;
 	private MTColor transparantWhite;
 	private Richting richting;
+	
+	public static Logger logger = Logger.getLogger("im_13_8.multecpanel.Applicqtion");
+	public FileHandler fh;
 
 	@Override
 	public void startUp() {
+		
+		//logger.severe("Dit gaat hier goed fout ");
+		//logger.log(Level.SEVERE, "beschri", error);
+		
+		try {
+			fh = new FileHandler("my.log");
+			logger.addHandler(fh);
+			SimpleFormatter formatter = new SimpleFormatter();
+			fh.setFormatter(formatter);
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+			
+			@Override
+			public void uncaughtException(Thread t, Throwable e) {
+				logger.log(Level.SEVERE, "UncaughtException", e);
+				fh.flush();
+				fh.close();
+			}
+		});
 		
 		/**
 		 * Preload all colors and fonts
