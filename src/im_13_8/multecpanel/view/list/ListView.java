@@ -58,7 +58,9 @@ public class ListView extends CustomScene {
 				ParentEntiteit newParent = new ParentEntiteit("list", getName());
 				newParent.setParent(parent);
 				transition.setDirection("up");
-				goToScene(item.getSoort(), item.getTekstlinks(), newParent);
+				if(item.getSoort() != "") {
+					goToScene(item.getSoort(), item.getTekstlinks(), newParent);
+				}
 			}
 		});
 		
