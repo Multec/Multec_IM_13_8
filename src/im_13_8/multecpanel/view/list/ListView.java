@@ -8,22 +8,34 @@ import im_13_8.multecpanel.entiteiten.ParentEntiteit;
 import im_13_8.multecpanel.view.util.BackButton;
 import im_13_8.multecpanel.view.util.Background;
 import im_13_8.multecpanel.view.util.CustomScene;
-import im_13_8.multecpanel.view.util.CustomTransition;
-import im_13_8.multecpanel.view.util.IBackButtonObserver;
 
 import java.util.ArrayList;
 
 import org.mt4j.components.visibleComponents.shapes.MTRectangle.PositionAnchor;
 import org.mt4j.components.visibleComponents.widgets.MTTextArea;
-import org.mt4j.sceneManagement.AbstractScene;
 import org.mt4j.util.math.Vector3D;
 
+/**
+*
+* @author Johan Sergeyssels
+* Integration: Multiscreen
+* Erasmushogeschool Brussel 2Ba Multimedia & Communicatietechnologie
+* 
+* scene of the listview that displays "docenten", "portfolio", ...
+*
+*/
 public class ListView extends CustomScene {
 	private ListItemController controller;
 	private ArrayList<Cluster> clusters;
 	private ListItemSliderView listitemsliderview;
 	private SliderView slider;
 	
+	/**
+	 * 
+	 * @param app the applicaiton
+	 * @param name name of the scene
+	 * @param parent name of the parentscene
+	 */
 	public ListView(final Application app, String name, final ParentEntiteit parent) {
 		super(app, name, parent);
 		float imagesY = 313;

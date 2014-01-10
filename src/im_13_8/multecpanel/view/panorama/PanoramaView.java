@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.mt4j.components.TransformSpace;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle.PositionAnchor;
-import org.mt4j.input.gestureAction.InertiaDragAction;
 import org.mt4j.input.inputProcessors.IGestureEventListener;
 import org.mt4j.input.inputProcessors.MTGestureEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragEvent;
@@ -21,7 +20,15 @@ import im_13_8.multecpanel.view.list.IListItemSliderObserver;
 import im_13_8.multecpanel.view.list.ListItemSliderView;
 import im_13_8.multecpanel.view.util.BackButton;
 import im_13_8.multecpanel.view.util.CustomScene;
-
+/**
+*
+* @author Johan Sergeyssels
+* Integration: Multiscreen
+* Erasmushogeschool Brussel 2Ba Multimedia & Communicatietechnologie
+* 
+* panoramascene
+*
+*/
 public class PanoramaView extends CustomScene {
 	private PanoramaController controller;
 	private MTRectangle panorama;

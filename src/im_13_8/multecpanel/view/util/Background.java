@@ -5,8 +5,22 @@ import org.mt4j.util.math.Vector3D;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+*
+* @author Johan Sergeyssels
+* Integration: Multiscreen
+* Erasmushogeschool Brussel 2Ba Multimedia & Communicatietechnologie
+* 
+* background for scenes
+*
+*/
 public class Background extends MTRectangle {
 
+	/**
+	 * 
+	 * @param path path of the backgroundimage
+	 * @param app the application
+	 */
 	public Background(String path, PApplet app) {
 		super(0, 0, app.width, app.height, app);
 		PImage backgroundimage = app.loadImage(path);

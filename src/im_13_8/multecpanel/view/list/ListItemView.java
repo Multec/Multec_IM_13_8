@@ -5,8 +5,6 @@ import im_13_8.multecpanel.entiteiten.ListItem;
 
 import org.mt4j.components.MTComponent;
 import org.mt4j.components.TransformSpace;
-import org.mt4j.components.visibleComponents.font.FontManager;
-import org.mt4j.components.visibleComponents.font.IFont;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle;
 import org.mt4j.components.visibleComponents.shapes.MTRectangle.PositionAnchor;
 import org.mt4j.components.visibleComponents.widgets.MTTextArea;
@@ -15,12 +13,19 @@ import org.mt4j.input.inputProcessors.MTGestureEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.dragProcessor.DragProcessor;
 import org.mt4j.input.inputProcessors.componentProcessors.tapProcessor.TapEvent;
 import org.mt4j.input.inputProcessors.componentProcessors.tapProcessor.TapProcessor;
-import org.mt4j.util.MTColor;
 import org.mt4j.util.math.Vector3D;
 
-import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+*
+* @author Johan Sergeyssels
+* Integration: Multiscreen
+* Erasmushogeschool Brussel 2Ba Multimedia & Communicatietechnologie
+* 
+* object that shows a lisitem
+*
+*/
 public class ListItemView extends MTComponent {
 	private ListItem listItem;
 	private float width;
@@ -33,6 +38,15 @@ public class ListItemView extends MTComponent {
 	private float y;
 	private boolean isBig;
 	
+	/**
+	 * 
+	 * @param x x-cošrdinate
+	 * @param y y-cošrdinate
+	 * @param width width of the object
+	 * @param height height of the object
+	 * @param listItem listitem that is getting displayed
+	 * @param app the application
+	 */
 	public ListItemView(float x, float y, float width, float height, ListItem listItem, Application app) {
 		super(app);
 		this.x = x;
@@ -114,19 +128,34 @@ public class ListItemView extends MTComponent {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param x value this object getting translated over the x-axis
+	 */
 	public void translateX(float x) {
 		this.x += x;
 		this.translate(new Vector3D(x, 0));
 	}
 	
+	/**
+	 * 
+	 * @return the x-cošrdinate
+	 */
 	public float getX() {
 		return this.x;
 	}
 	
+	/**
+	 * 
+	 * @return the y-cošrdinate
+	 */
 	public float getY() {
 		return this.y;
 	}
 	
+	/**
+	 *  reduces this object
+	 */
 	public void setSmall() {
 		if(this.isBig) {
 			float side = (1 - smallratio) / 2;
@@ -138,6 +167,9 @@ public class ListItemView extends MTComponent {
 		}
 	}
 	
+	/**
+	 * enlarges this object
+	 */
 	public void setBig() {
 		if(!this.isBig) {
 			float bigratio = 1 / smallratio;
@@ -149,6 +181,10 @@ public class ListItemView extends MTComponent {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return listitem that is being displayed
+	 */
 	public ListItem getListItem() {
 		return listItem;
 	}

@@ -20,6 +20,15 @@ import org.mt4j.util.animation.IAnimationListener;
 import org.mt4j.util.animation.MultiPurposeInterpolator;
 import org.mt4j.util.math.Vector3D;
 
+/**
+*
+* @author Johan Sergeyssels
+* Integration: Multiscreen
+* Erasmushogeschool Brussel 2Ba Multimedia & Communicatietechnologie
+* 
+* slider that shows listitemviews
+*
+*/
 public class ListItemSliderView extends MTComponent {
 	private ArrayList<IListItemSliderObserver> observers;
 	private ArrayList<ListItem> listitems;
@@ -34,22 +43,55 @@ public class ListItemSliderView extends MTComponent {
 	private int loaded;
 	private int amountToLoad;
 	
+	/**
+	 * registering the observer for this object
+	 * @param observer the observer that needs to be registered
+	 */
 	public void registerListItemSliderObserver(IListItemSliderObserver observer) {
 		observers.add(observer);
 	}
 	
+	/**
+	 * 
+	 * @return height of this component
+	 */
 	public float getHeight() {
 		return height;
 	}
 	
+	/**
+	 * 
+	 * @return the listitems being displayed
+	 */
 	public ArrayList<ListItem> getListItems() {
 		return listitems;
 	}
 	
+	/**
+	 * 
+	 * 
+	 * @param x x-position
+	 * @param y y-position
+	 * @param width width
+	 * @param height height
+	 * @param listitems listitems that needs to be displayed
+	 * @param app the application
+	 */
 	public ListItemSliderView(float x, float y, float width, float height, ArrayList<ListItem> listitems, Application app) {
 		this(x, y, width, height, listitems, app, app.width / 2.5f, (width / 2) - (width - (height * 0.8f) / 2));
 	}
 	
+	/**
+	 * 
+	 * @param x x-cošrdinate
+	 * @param y y-cošrdinate
+	 * @param width width
+	 * @param height height
+	 * @param listitems listitems that needs to be displayed
+	 * @param app the application
+	 * @param tilewidth the width of a tile
+	 * @param dbetween the width between tiles (between the x-cošrds)
+	 */
 	public ListItemSliderView(float x, float y, float width, float height, ArrayList<ListItem> listitems, Application app, float tilewidth, float dbetween) {
 		super(app);
 		this.observers = new ArrayList<IListItemSliderObserver>();
@@ -219,13 +261,13 @@ public class ListItemSliderView extends MTComponent {
 		}
 	}
 	
-	public void notifyListItemSelected(ListItem item) {
+	private void notifyListItemSelected(ListItem item) {
 		for (IListItemSliderObserver observer : observers) {
 			observer.listItemSelected(this, item);
 		}
 	}
 	
-	public void notifyListItemDoubleClicked(ListItem item) {
+	private void notifyListItemDoubleClicked(ListItem item) {
 		for (IListItemSliderObserver observer : observers) {
 			observer.listItemDoubleClicked(item);
 		}
@@ -238,6 +280,10 @@ public class ListItemSliderView extends MTComponent {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param position select the item with index position
+	 */
 	public void setPosition(int position) {
 		if(position >= 0 && position < amountToLoad) {
 			loadmore(1);

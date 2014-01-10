@@ -30,10 +30,15 @@ import org.mt4j.util.animation.MultiPurposeInterpolator;
 import org.mt4j.util.math.Vector3D;
 
 /**
- * The Class SlideTransition.
- * 
- * @author Christopher Ruff
- */
+*
+* @author Johan Sergeyssels
+* Integration: Multiscreen
+* Erasmushogeschool Brussel 2Ba Multimedia & Communicatietechnologie
+* 
+* transition between scenes
+* copied from mt4j
+*
+*/
 public class CustomTransition extends AbstractTransition {
 	
 	/** The app. */

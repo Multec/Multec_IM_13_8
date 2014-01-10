@@ -10,6 +10,15 @@ import org.mt4j.util.animation.IAnimationListener;
 import org.mt4j.util.animation.MultiPurposeInterpolator;
 import org.mt4j.util.math.Vector3D;
 
+/**
+*
+* @author Johan Sergeyssels
+* Integration: Multiscreen
+* Erasmushogeschool Brussel 2Ba Multimedia & Communicatietechnologie
+* 
+* drag event and goes back to its original location
+*
+*/
 public class BounceBack implements IGestureEventListener {
 	private float travelled;
 	private IBounceBackObserver observer;
@@ -19,18 +28,44 @@ public class BounceBack implements IGestureEventListener {
 	private boolean enableNegative;
 	private Animation animation;
 	
+	/**
+	 * 
+	 * @param args object that goes back to the observer after a 
+	 * @param observer the observer of this object
+	 */
 	public BounceBack(Object args, IBounceBackObserver observer) {
 		this(args, observer, true);
 	}
 	
+	/**
+	 * 
+	 * @param args object that goes back to the observer after a not
+	 * @param observer the observer of this object
+	 * @param moveHorizontal true for horizontal movement false for vertical
+	 */
 	public BounceBack(Object args, IBounceBackObserver observer, boolean moveHorizontal) {
 		this(args, observer, moveHorizontal, true);
 	}
 	
+	/**
+	 * 
+	 * @param args
+	 * @param observer
+	 * @param moveHorizontal
+	 * @param enablePositive
+	 */
 	public BounceBack(Object args, IBounceBackObserver observer, boolean moveHorizontal, boolean enablePositive) {
 		this(args, observer, moveHorizontal, enablePositive, true);
 	}
 	
+	/**
+	 * 
+	 * @param args
+	 * @param observer
+	 * @param moveHorizontal
+	 * @param enablePositive
+	 * @param enableNegative
+	 */
 	public BounceBack(Object args, IBounceBackObserver observer, boolean moveHorizontal, boolean enablePositive, boolean enableNegative) {
 		this.observer = observer;
 		this.args = args;
@@ -39,12 +74,18 @@ public class BounceBack implements IGestureEventListener {
 		this.enableNegative = enableNegative;
 	}
 	
+	/**
+	 * stop the returning animation
+	 */
 	public void stopAnimation() {
 		if(this.animation != null) {
 			this.animation.stop();
 		}
 	}
 	
+	/**
+	 * process the gesture event
+	 */
 	@Override
 	public boolean processGestureEvent(MTGestureEvent ge) {
 		boolean canStopAnimation = false;

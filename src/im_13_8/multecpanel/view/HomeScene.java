@@ -26,6 +26,15 @@ import org.mt4j.util.math.Vector3D;
 
 import processing.core.PImage;
 
+/**
+*
+* @author Johan Sergeyssels
+* Integration: Multiscreen
+* Erasmushogeschool Brussel 2Ba Multimedia & Communicatietechnologie
+* 
+* first scene of the homescreen
+*
+*/
 public class HomeScene extends AbstractScene implements IBounceBackObserver{
 	private HomeController controller;
 	private ArrayList<ArrowRight> arrowsRight;

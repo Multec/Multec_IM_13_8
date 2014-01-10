@@ -20,6 +20,15 @@ import org.mt4j.util.math.Vector3D;
 
 import processing.core.PImage;
 
+/**
+ *
+ * @author Sam Coenen
+ * Integration: Multiscreen
+ * Erasmushogeschool Brussel 2Ba Multimedia & Communicatietechnologie
+ * 
+ * This class creates the menu items used for the menu
+ *
+ */
 public class MenuItemView extends MTComponent {
 
 	private PImage bgImage;
@@ -30,6 +39,16 @@ public class MenuItemView extends MTComponent {
 	private Animation fadeout;
 	private ArrowUp arrow;
 	
+	/**
+	 * Create a new menu item.
+	 * @param x The starting position of the menu item.
+	 * @param y The height of the menu item.
+	 * @param width The width of the menu item.
+	 * @param height The height of the menu item.
+	 * @param app The application.
+	 * @param menuItem The menuItem which we will draw.
+	 * @param indexInArray The index from the array of list items.
+	 */
 	public MenuItemView(float x, float y, float width, float height,
 			Application app, MenuItem menuItem, int indexInArray) {
 		super(app);
@@ -49,7 +68,8 @@ public class MenuItemView extends MTComponent {
 		this.addChild(menuItemViewColored);
 		colored = false;
 		
-		MTRectangle transBox = new MTRectangle(0, height / 15 * 11, width, height / 15 * 4, app);
+		MTRectangle transBox = new MTRectangle(0, height / 15 * 11, width,
+				height / 15 * 4, app);
 		transBox.setFillColor(app.getTransparantBlack());
 		transBox.setNoStroke(true);
 		this.addChild(transBox);
@@ -60,12 +80,14 @@ public class MenuItemView extends MTComponent {
 		textBox.setNoFill(true);
 		textBox.setNoStroke(true);
 		textBox.setText(menuItem.getName());
-		textBox.setPositionRelativeToParent(new Vector3D(width / 2, height/10 * 8.5f));
+		textBox.setPositionRelativeToParent(new Vector3D(width / 2,
+				height/10 * 8.5f));
 		
 		final MTComponent component = this;
 		for (MTComponent comp : this.getChildren()) {
 			comp.removeAllGestureEventListeners();
-			comp.addGestureListener(DragProcessor.class, new IGestureEventListener() {
+			comp.addGestureListener(DragProcessor.class,
+					new IGestureEventListener() {
 				
 				@Override
 				public boolean processGestureEvent(MTGestureEvent ge) {
@@ -75,7 +97,8 @@ public class MenuItemView extends MTComponent {
 				}
 			});
 			comp.registerInputProcessor(new TapProcessor(app));
-			comp.addGestureListener(TapProcessor.class, new IGestureEventListener() {
+			comp.addGestureListener(TapProcessor.class, 
+					new IGestureEventListener() {
 				
 				@Override
 				public boolean processGestureEvent(MTGestureEvent ge) {
@@ -87,10 +110,14 @@ public class MenuItemView extends MTComponent {
 		
 		arrow = new ArrowUp(app);
 		this.addChild(arrow);
-		arrow.setPositionRelativeToParent(new Vector3D(width / 2, app.height / 20 * 19));
+		arrow.setPositionRelativeToParent(new Vector3D(width / 2,
+				app.height / 20 * 19));
 		
 	}
 	
+	/**
+	 * On tap, highlight the item with color.
+	 */
 	public void setColored() {
 		menuItemViewColored.setFillColor(new MTColor(255, 255, 255, 255));
 		this.arrow.setBright();
@@ -104,17 +131,22 @@ public class MenuItemView extends MTComponent {
 		if(fadeout != null) {
 			fadeout.stop();
 		}
-		fadeout = new Animation("Returns", new MultiPurposeInterpolator(255, 0, 2000, 0, 1, 1), menuItemViewColored);
+		fadeout = new Animation("Returns", new MultiPurposeInterpolator(255,
+				0, 2000, 0, 1, 1), menuItemViewColored);
 		fadeout.addAnimationListener(new IAnimationListener() {
 			
 			@Override
 			public void processAnimationEvent(AnimationEvent ae) {
-				menuItemViewColored.setFillColor(new MTColor(255, 255, 255, ae.getCurrentValue()));
+				menuItemViewColored.setFillColor(new MTColor(255, 255, 255,
+						ae.getCurrentValue()));
 			}
 		});
 		fadeout.start();
 	}
 	
+	/**
+	 * @return Yes if highlighted.
+	 */
 	public boolean isColored() {
 		return colored;
 	}

@@ -5,13 +5,19 @@ import org.mt4j.util.math.Vertex;
 
 import im_13_8.multecpanel.Application;
 import im_13_8.multecpanel.controller.DocentenController;
-import im_13_8.multecpanel.controller.MovieController;
 import im_13_8.multecpanel.entiteiten.DocentenInfo;
-import im_13_8.multecpanel.entiteiten.Resource;
 import im_13_8.multecpanel.entiteiten.ParentEntiteit;
 import im_13_8.multecpanel.view.util.BackButton;
 import im_13_8.multecpanel.view.util.CustomScene;
-
+/**
+*
+* @author Johan Sergeyssels
+* Integration: Multiscreen
+* Erasmushogeschool Brussel 2Ba Multimedia & Communicatietechnologie
+* 
+* scene of the movie
+*
+*/
 public class MovieScene extends CustomScene {
 
 	private DocentenController controller;

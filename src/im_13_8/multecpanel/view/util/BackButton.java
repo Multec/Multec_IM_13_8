@@ -14,9 +14,23 @@ import org.mt4j.util.math.Vector3D;
 
 import im_13_8.multecpanel.view.util.ArrowDown;
 
+/**
+*
+* @author Johan Sergeyssels
+* Integration: Multiscreen
+* Erasmushogeschool Brussel 2Ba Multimedia & Communicatietechnologie
+* 
+* back button of all the scene
+*
+*/
 public class BackButton extends MTEllipse {
 	private IBackButtonObserver obs;
 	
+	/**
+	 * 
+	 * @param app the application
+	 * @param observer the scene where the button is on
+	 */
 	public BackButton(Application app, IBackButtonObserver observer) {
 		super(app, new Vector3D(app.width / 2, -20), 75, 75);
 		this.obs = observer;
