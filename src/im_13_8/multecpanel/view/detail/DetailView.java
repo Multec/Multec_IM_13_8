@@ -42,11 +42,10 @@ public class DetailView extends CustomScene {
 		titel.removeAllGestureEventListeners();
 		this.getCanvas().addChild(titel);
 			 
-		MTTextArea omschrijving = new MTTextArea(app, app.getFontText()); 
+		MTTextArea omschrijving = new MTTextArea(25, app.height/20 * 17, app.width - 50, app.height / 20 * 3,app.getFontText(), app); 
 		omschrijving.setNoFill(true);
 		omschrijving.setNoStroke(true);
 		omschrijving.setText(detailInfo.getVakOmschrijving());
-		omschrijving.translate(new Vector3D(25, app.height/20 * 17));
 		omschrijving.removeAllGestureEventListeners();
 		this.getCanvas().addChild(omschrijving);
 		
