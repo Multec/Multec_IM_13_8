@@ -29,6 +29,10 @@ public class ListItemSliderView extends MTComponent {
 	private MTRectangle touchRect;
 	private float distancebetween;
 	private Animation gotoAnimation;
+	private Application app;
+	private float tilewidth;
+	private int loaded;
+	private int amountToLoad;
 	
 	public void registerListItemSliderObserver(IListItemSliderObserver observer) {
 		observers.add(observer);
@@ -55,6 +59,8 @@ public class ListItemSliderView extends MTComponent {
 		this.height = height;
 		this.translate(new Vector3D(x, y));
 		this.distancebetween = dbetween;
+		this.app = app;
+		this.tilewidth = tilewidth;
 		
 		touchRect = new MTRectangle(0, 0, width, height, app);
 		touchRect.setFillColor(new MTColor(0, 0, 0, 0));
@@ -95,6 +101,8 @@ public class ListItemSliderView extends MTComponent {
 								break;
 							case AnimationEvent.ANIMATION_ENDED:
 								moveListItemsViews(ae.getCurrentStepDelta());
+								int loadamount = (int) (travelledX / distancebetween) + 1;
+								loadmore(loadamount);
 								gotoClosestListItem();
 								break;
 							default:
@@ -112,32 +120,51 @@ public class ListItemSliderView extends MTComponent {
 		});
 		this.addChild(touchRect);
 		
-		for (int i = 0; i < listitems.size(); i++) {
-			float position = (width / 2) - distancebetween * i;
-			
-			ListItemView liv = new ListItemView(position , height / 2, tilewidth, height, listitems.get(i), app);
-			liv.addGestureListener(DragProcessor.class, new IGestureEventListener() {
-				
-				@Override
-				public boolean processGestureEvent(MTGestureEvent ge) {
-					touchRect.processGestureEvent(ge);
-					return false;
-				}
-			});
-			
-			final ListItem listitem = liv.getListItem();
-			liv.addGestureListener(TapProcessor.class, new IGestureEventListener() {
-				
-				@Override
-				public boolean processGestureEvent(MTGestureEvent ge) {
-					notifyListItemDoubleClicked(listitem);
-					return false;
-				}
-			});
-			listitemViews.add(liv);
-			checkPosition(listitemViews.get(i));
-			this.addChild(listitemViews.get(i));
+		amountToLoad = listitems.size();
+		for (int i = 0; i < amountToLoad && i < 7; i++) {
+			addListItemView(i);
+			loaded = i;
 		}
+	}
+
+	private void loadmore(int amount) {
+		if(amountToLoad > loaded) {
+			int end = loaded + amount + 1;
+			for(int i = loaded + 1; i < end && i < amountToLoad; i++) {
+				addListItemView(i);
+				loaded = i;
+			}
+		}
+	}
+	
+	private void addListItemView(int i) {
+		float position = (width / 2); // - distancebetween * i;
+		if(i > 0) {
+			position = listitemViews.get(listitemViews.size() - 1).getX() - distancebetween;
+		}
+		
+		ListItemView liv = new ListItemView(position , height / 2, tilewidth, height, listitems.get(i), app);
+		liv.addGestureListener(DragProcessor.class, new IGestureEventListener() {
+			
+			@Override
+			public boolean processGestureEvent(MTGestureEvent ge) {
+				touchRect.processGestureEvent(ge);
+				return false;
+			}
+		});
+		
+		final ListItem listitem = liv.getListItem();
+		liv.addGestureListener(TapProcessor.class, new IGestureEventListener() {
+			
+			@Override
+			public boolean processGestureEvent(MTGestureEvent ge) {
+				notifyListItemDoubleClicked(listitem);
+				return false;
+			}
+		});
+		listitemViews.add(liv);
+		checkPosition(listitemViews.get(i));
+		this.addChild(listitemViews.get(i));
 	}
 	
 	private void gotoClosestListItem() {
@@ -212,7 +239,8 @@ public class ListItemSliderView extends MTComponent {
 	}
 	
 	public void setPosition(int position) {
-		if(position >= 0 && position < listitems.size()) {
+		if(position >= 0 && position < amountToLoad) {
+			loadmore(1);
 			ListItemView listitemview = listitemViews.get(position);
 			float mid = width / 2;
 			float translateX = mid - listitemview.getX();
