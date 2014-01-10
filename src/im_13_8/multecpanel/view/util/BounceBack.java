@@ -97,7 +97,7 @@ public class BounceBack implements IGestureEventListener {
 					canStopAnimation = true;
 				}
 			}
-			stopAnimation();
+			//stopAnimation();
 			animation = new Animation("Returns", new MultiPurposeInterpolator(0, -travelled, 500, 0, 1, 1), target);
 			animation.addAnimationListener(new IAnimationListener() {	
 				@Override
